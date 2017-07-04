@@ -2,15 +2,14 @@ package com.example.robert.medius
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity() {
 
     private var mViewPageAdapter: ViewPagerAdapter? = null
-    private var mViewPager: ViewPager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,11 +24,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupTabLayout() {
         mViewPageAdapter = ViewPagerAdapter(supportFragmentManager)
 
-        mViewPager = find<ViewPager>(R.id.container)
-        mViewPager!!.adapter = mViewPageAdapter
+        container.adapter = mViewPageAdapter
 
         val tabLayout = find<TabLayout>(R.id.tabs)
-        tabLayout.setupWithViewPager(mViewPager)
+        tabLayout.setupWithViewPager(container)
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
