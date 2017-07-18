@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.example.robert.medius"
         minSdkVersion 21
@@ -31,7 +31,6 @@ dependencies {
     })
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:design:$support_version"
-    testCompile 'junit:junit:4.12'
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -39,9 +38,7 @@ dependencies {
     compile "org.jetbrains.anko:anko-commons:$anko_version"
 
     // Facebook
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-
-}
-repositories {
-    mavenCentral()
+    compile 'com.facebook.android:facebook-android-sdk:4.24.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }

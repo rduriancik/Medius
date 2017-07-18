@@ -15,14 +15,14 @@ class NewsFeedAdapter() : RecyclerView.Adapter<NewsFeedAdapter.NewsViewHolder>()
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return 0;
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): NewsViewHolder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    inner class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     }
 }

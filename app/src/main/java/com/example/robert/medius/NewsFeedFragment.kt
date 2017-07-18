@@ -25,11 +25,11 @@ class NewsFeedFragment() : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val rootView = inflater!!.inflate(R.layout.fragment_newsfeed, container, false)
+        return inflater!!.inflate(R.layout.fragment_newsfeed, container, false)
+    }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         rvNewsFeed.layoutManager = LinearLayoutManager(context)
         rvNewsFeed.adapter = NewsFeedAdapter()
-
-        return rootView
     }
 }

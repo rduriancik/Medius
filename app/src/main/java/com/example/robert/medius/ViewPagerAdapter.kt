@@ -15,12 +15,13 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     }
 
     override fun getCount(): Int {
-        return 1
+        return 2
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         when (position) {
-            0 -> return "ALL"
+            0 -> return "Facebook"
+            1 -> return "Twitter"
         }
         return null
     }

@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Medius</string>
-    <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <string name="facebook_app_id">462084774150689</string>
     <string name="fb_login_protocol_scheme">fb462084774150689</string>
+    <string name="label_social_media_activity">Social Media</string>
+    <string name="social_media_facebook">Facebook</string>
+    <string name="social_media_twitter">Twitter</string>
 </resources>
