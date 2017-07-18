@@ -1,11 +1,8 @@
 package com.example.robert.medius
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar = find<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         setupTabLayout()
@@ -26,8 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         container.adapter = mViewPageAdapter
 
-        val tabLayout = find<TabLayout>(R.id.tabs)
-        tabLayout.setupWithViewPager(container)
+        tabs.setupWithViewPager(container)
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
