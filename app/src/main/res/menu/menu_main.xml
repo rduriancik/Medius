@@ -5,5 +5,6 @@
     <item
         android:id="@+id/action_social_media"
         android:title="@string/label_social_media_activity"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_account"
+        app:showAsAction="ifRoom" />
 </menu>
