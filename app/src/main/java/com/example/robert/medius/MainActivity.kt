@@ -1,11 +1,12 @@
 package com.example.robert.medius
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.robert.medius.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_social_media) {
-            startActivity(Intent(this, SocialMediaActivity::class.java))
+            startActivity<LoginActivity>()
             return true
         }
 
