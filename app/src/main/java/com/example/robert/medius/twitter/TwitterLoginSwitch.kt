@@ -84,7 +84,7 @@ class TwitterLoginSwitch : Switch {
             checkActivity(activityRef?.get())
             checkCallback(callback)
 
-            if (isChecked) {
+            if (isChecked && !TwitterCore.getInstance().isLoggedIn()) {
                 authClient.authorize(activityRef!!.get(), callback)
             } else {
                 TwitterCore.getInstance().sessionManager.clearActiveSession()
