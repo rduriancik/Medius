@@ -50,10 +50,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
         super.onDestroy()
     }
 
-    override fun setTwitterSwitchChecked() {
-        switch_twitter.isChecked = true
-    }
-
     override fun setFacebookSwitchChecked() {
         switch_facebook.isChecked = true
     }

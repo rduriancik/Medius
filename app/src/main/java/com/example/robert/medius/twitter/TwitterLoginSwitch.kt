@@ -25,8 +25,11 @@ class TwitterLoginSwitch : Switch {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
     init {
-        super.setOnCheckedChangeListener(LoginOnCheckedChangeListener())
         checkTwitterCoreAndEnable()
+        if (TwitterCore.getInstance().isLoggedIn()) {
+            isChecked = true
+        }
+        super.setOnCheckedChangeListener(LoginOnCheckedChangeListener())
     }
 
     private val ERROR_MSG_NO_ACTIVITY = "TwitterLoginButton requires an activity." +
@@ -84,9 +87,12 @@ class TwitterLoginSwitch : Switch {
             checkActivity(activityRef?.get())
             checkCallback(callback)
 
+            Twitter.getLogger().d(TwitterCore.TAG, "called")
+
             if (isChecked && !TwitterCore.getInstance().isLoggedIn()) {
                 authClient.authorize(activityRef!!.get(), callback)
             } else {
+                Twitter.getLogger().d(TwitterCore.TAG, "logged out")
                 TwitterCore.getInstance().sessionManager.clearActiveSession()
             }
         }
