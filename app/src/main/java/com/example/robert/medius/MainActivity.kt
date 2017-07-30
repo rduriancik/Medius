@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.robert.medius.login.ui.LoginActivity
+import com.example.robert.medius.twitter.isLoggedIn
+import com.twitter.sdk.android.core.TwitterCore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,11 +22,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         setupTabLayout()
+        toast("${TwitterCore.getInstance().isLoggedIn()}")
     }
 
     private fun setupTabLayout() {
         mViewPageAdapter = ViewPagerAdapter(supportFragmentManager)
-
         container.adapter = mViewPageAdapter
 
         tabs.setupWithViewPager(container)

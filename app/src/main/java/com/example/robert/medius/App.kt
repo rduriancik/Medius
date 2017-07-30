@@ -1,6 +1,8 @@
 package com.example.robert.medius
 
 import android.app.Application
+import android.util.Log
+import com.twitter.sdk.android.core.DefaultLogger
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
@@ -18,6 +20,8 @@ class App : Application() {
     private fun initTwitter() {
         val config = TwitterConfig.Builder(this)
                 .twitterAuthConfig(TwitterAuthConfig(BuildConfig.TWITTER_KEY, BuildConfig.TWITTER_SECRET))
+                .debug(true)
+                .logger(DefaultLogger(Log.DEBUG))
                 .build()
 
         Twitter.initialize(config)

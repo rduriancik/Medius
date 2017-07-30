@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.robert.medius.R
 import com.example.robert.medius.login.LoginPresenter
+import com.example.robert.medius.login.di.DaggerLoginComponent
+import com.example.robert.medius.login.di.LoginModule
 import com.example.robert.medius.snackbar
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
@@ -21,6 +23,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        setupInjection()
         setupSwitches()
     }
 
@@ -40,7 +43,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun onPause() {
         super.onPause()
-        presenter.onPause()
     }
 
     override fun onDestroy() {
@@ -58,6 +60,13 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun onError(error: String) {
         snackbar(container, error)
+    }
+
+    private fun setupInjection() {
+        DaggerLoginComponent.builder()
+                .loginModule(LoginModule(this))
+                .build()
+                .inject(this)
     }
 
     private fun setupSwitches() {
