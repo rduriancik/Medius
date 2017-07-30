@@ -6,6 +6,7 @@ import com.example.robert.medius.base.View
  * Created by robert on 20.7.2017.
  */
 interface LoginView : View {
-    fun setTwitterSwitchChecked();
-    fun setFacebookSwitchChecked();
+    fun setTwitterSwitchChecked()
+    fun setFacebookSwitchChecked()
+    fun onError(error: String)
 }
