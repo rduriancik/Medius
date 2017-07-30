@@ -1,4 +1,4 @@
-package com.example.robert.medius
+package com.example.robert.medius.twitter
 
 import android.app.Activity
 import android.content.Context
@@ -23,7 +23,6 @@ class TwitterLoginSwitch : Switch {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
-
 
     init {
         super.setOnCheckedChangeListener(LoginOnCheckedChangeListener())
@@ -58,8 +57,10 @@ class TwitterLoginSwitch : Switch {
         return callback
     }
 
+    fun getRequestCode(): Int = authClient.requestCode
+
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == authClient.getRequestCode()) {
+        if (requestCode == authClient.requestCode) {
             authClient.onActivityResult(requestCode, resultCode, data)
         }
     }
