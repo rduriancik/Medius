@@ -1,34 +1,30 @@
-package com.example.robert.medius
+package com.example.robert.medius.main.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.robert.medius.R
 import com.example.robert.medius.login.ui.LoginActivity
-import com.example.robert.medius.twitter.isLoggedIn
-import com.twitter.sdk.android.core.TwitterCore
+import com.example.robert.medius.main.adapters.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private var mViewPageAdapter: ViewPagerAdapter? = null
+    @Inject lateinit var mViewPageAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
-
         setupTabLayout()
-        toast("${TwitterCore.getInstance().isLoggedIn()}")
     }
 
     private fun setupTabLayout() {
-        mViewPageAdapter = ViewPagerAdapter(supportFragmentManager)
         container.adapter = mViewPageAdapter
-
         tabs.setupWithViewPager(container)
     }
 
