@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 25
@@ -51,4 +52,8 @@ dependencies {
 
     //Twitter
     compile 'com.twitter.sdk.android:twitter-core:3.0.0'
+
+    // Dagger
+    compile "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }

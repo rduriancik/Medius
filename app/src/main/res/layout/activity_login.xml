@@ -36,7 +36,7 @@
             android:text="@string/social_media_twitter" />
 
 
-        <com.example.robert.medius.TwitterLoginSwitch
+        <com.example.robert.medius.twitter.TwitterLoginSwitch
             android:id="@+id/switch_twitter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
