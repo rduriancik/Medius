@@ -19,20 +19,15 @@ class NewsFeedFragment() : Fragment() {
 
         fun newInstance(type: NewsFeedType): NewsFeedFragment {
             val fragment = NewsFeedFragment()
-            val args = Bundle()
-            args.putSerializable(NEWS_FEED_TYPE_KEY, type)
-            fragment.arguments = args
+            fragment.feedType = type
             return fragment
         }
     }
 
-    lateinit private var type: NewsFeedType
+    var feedType: NewsFeedType = NewsFeedType.NONE
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater!!.inflate(R.layout.fragment_newsfeed, container, false)
-
-        type = arguments.getSerializable(NEWS_FEED_TYPE_KEY) as NewsFeedType
-
         return view
     }
 
@@ -40,6 +35,4 @@ class NewsFeedFragment() : Fragment() {
         rvNewsFeed.layoutManager = LinearLayoutManager(context)
         rvNewsFeed.adapter = NewsFeedAdapter()
     }
-
-    fun getFeedType(): NewsFeedType = type
 }

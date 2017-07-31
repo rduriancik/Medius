@@ -20,15 +20,19 @@ class ViewPagerAdapter(fm: FragmentManager, val fragments: MutableList<NewsFeedF
         return fragments.size
     }
 
-    override fun getPageTitle(position: Int): CharSequence? = fragments[position].getFeedType().name
+    override fun getPageTitle(position: Int): CharSequence? {
+        val name = fragments[position].feedType.name
+        return name
+    }
 
-    fun add(type: NewsFeedType) {
-        fragments.add(NewsFeedFragment.newInstance(type))
+    fun set(items: MutableList<NewsFeedFragment>) {
+        fragments.clear()
+        fragments.addAll(items)
         notifyDataSetChanged()
     }
 
     fun remove(type: NewsFeedType) {
-        val index = fragments.indexOfFirst { it.getFeedType() == type }
+        val index = fragments.indexOfFirst { it.feedType == type }
         if (index != -1) {
             fragments.removeAt(index)
             notifyDataSetChanged()
