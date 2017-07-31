@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.robert.medius.R
+import com.example.robert.medius.newsFeed.NewsFeedPresenter
 import com.example.robert.medius.newsFeed.adapters.NewsFeedAdapter
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import kotlinx.android.synthetic.main.fragment_newsfeed.*
+import javax.inject.Inject
 
 /**
  * Created by robert on 4.7.2017.
@@ -26,6 +28,9 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
 
     var feedType: NewsFeedType = NewsFeedType.NONE
 
+    @Inject lateinit var presenter: NewsFeedPresenter<NewsFeedView>
+    @Inject lateinit var adapter: NewsFeedAdapter
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater!!.inflate(R.layout.fragment_newsfeed, container, false)
         return view
@@ -33,6 +38,6 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         rvNewsFeed.layoutManager = LinearLayoutManager(context)
-        rvNewsFeed.adapter = NewsFeedAdapter()
+        rvNewsFeed.adapter = adapter
     }
 }
