@@ -3,8 +3,8 @@ package com.example.robert.medius.main.adapters
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.robert.medius.newsFeed.NewsFeedFragment
-import com.example.robert.medius.newsFeed.NewsFeedType
+import com.example.robert.medius.newsFeed.types.NewsFeedType
+import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

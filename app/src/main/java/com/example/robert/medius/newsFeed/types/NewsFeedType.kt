@@ -1,4 +1,4 @@
-package com.example.robert.medius.newsFeed
+package com.example.robert.medius.newsFeed.types
 
 /**
  * Created by robert on 31.7.2017.

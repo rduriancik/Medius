@@ -11,7 +11,7 @@ import com.example.robert.medius.main.MainView
 import com.example.robert.medius.main.adapters.ViewPagerAdapter
 import com.example.robert.medius.main.di.DaggerMainComponent
 import com.example.robert.medius.main.di.MainModule
-import com.example.robert.medius.newsFeed.NewsFeedFragment
+import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject

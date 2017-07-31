@@ -3,7 +3,7 @@ package com.example.robert.medius.main.di
 import android.support.v4.app.FragmentManager
 import com.example.robert.medius.main.*
 import com.example.robert.medius.main.adapters.ViewPagerAdapter
-import com.example.robert.medius.newsFeed.NewsFeedFragment
+import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 import dagger.Module
 import dagger.Provides
 

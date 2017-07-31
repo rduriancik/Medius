@@ -1,7 +1,7 @@
 package com.example.robert.medius.main
 
-import com.example.robert.medius.newsFeed.NewsFeedFragment
-import com.example.robert.medius.newsFeed.NewsFeedType
+import com.example.robert.medius.newsFeed.types.NewsFeedType
+import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 
 /**
  * Created by robert on 31.7.2017.

@@ -1,4 +1,4 @@
-package com.example.robert.medius.newsFeed
+package com.example.robert.medius.newsFeed.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,16 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.robert.medius.R
+import com.example.robert.medius.newsFeed.adapters.NewsFeedAdapter
+import com.example.robert.medius.newsFeed.types.NewsFeedType
 import kotlinx.android.synthetic.main.fragment_newsfeed.*
 
 /**
  * Created by robert on 4.7.2017.
  */
-class NewsFeedFragment() : Fragment() {
+class NewsFeedFragment() : Fragment(), NewsFeedView {
 
     companion object {
-        const val NEWS_FEED_TYPE_KEY = "TYPE_KEY"
-
         fun newInstance(type: NewsFeedType): NewsFeedFragment {
             val fragment = NewsFeedFragment()
             fragment.feedType = type
