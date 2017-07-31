@@ -1,4 +1,4 @@
-package com.example.robert.medius
+package com.example.robert.medius.extensions
 
 import android.app.Activity
 import android.support.design.widget.Snackbar

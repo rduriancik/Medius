@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.robert.medius.R
+import com.example.robert.medius.extensions.snackbar
 import com.example.robert.medius.login.LoginPresenter
 import com.example.robert.medius.login.di.DaggerLoginComponent
 import com.example.robert.medius.login.di.LoginModule
-import com.example.robert.medius.snackbar
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
