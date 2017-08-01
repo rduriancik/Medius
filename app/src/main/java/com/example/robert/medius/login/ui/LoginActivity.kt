@@ -3,6 +3,7 @@ package com.example.robert.medius.login.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.robert.medius.FacebookLoginCallback
 import com.example.robert.medius.R
 import com.example.robert.medius.extensions.snackbar
 import com.example.robert.medius.login.LoginPresenter
@@ -13,6 +14,7 @@ import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
 import com.twitter.sdk.android.core.TwitterSession
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -30,10 +32,11 @@ class LoginActivity : AppCompatActivity(), LoginView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == switch_twitter.getRequestCode()) {
             switch_twitter.onActivityResult(requestCode, resultCode, data)
+        } else {
+            switch_facebook.onActivityResult(requestCode, resultCode, data)
         }
 
         super.onActivityResult(requestCode, resultCode, data)
-
     }
 
     override fun onResume() {
@@ -50,10 +53,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
         super.onDestroy()
     }
 
-    override fun setFacebookSwitchChecked() {
-        switch_facebook.isChecked = true
-    }
-
     override fun onError(error: String) {
         snackbar(container, error)
     }
@@ -66,7 +65,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     private fun setupSwitches() {
-        switch_facebook.setOnCheckedChangeListener { _, isChecked -> }
+        switch_facebook.registerCallback(createFacebookCallback())
         switch_twitter.setCallback(createTwitterCallback())
     }
 
@@ -77,6 +76,20 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
         override fun failure(exception: TwitterException?) {
             snackbar(container, "Failure")
+        }
+    }
+
+    fun createFacebookCallback(): FacebookLoginCallback = object : FacebookLoginCallback {
+        override fun onError(error: String) {
+            toast("error ${error}")
+        }
+
+        override fun onSuccess() {
+            toast("Success")
+        }
+
+        override fun onCancel() {
+            toast("cancel")
         }
     }
 }

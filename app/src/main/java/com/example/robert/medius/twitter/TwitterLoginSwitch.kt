@@ -87,12 +87,10 @@ class TwitterLoginSwitch : Switch {
             checkActivity(activityRef?.get())
             checkCallback(callback)
 
-            Twitter.getLogger().d(TwitterCore.TAG, "called")
-
             if (isChecked && !TwitterCore.getInstance().isLoggedIn()) {
                 authClient.authorize(activityRef!!.get(), callback)
             } else {
-                Twitter.getLogger().d(TwitterCore.TAG, "logged out")
+                // TODO alertdialog like in the facebookloginswitch
                 TwitterCore.getInstance().sessionManager.clearActiveSession()
             }
         }
