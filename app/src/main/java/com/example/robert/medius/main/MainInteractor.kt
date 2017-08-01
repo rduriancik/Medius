@@ -5,4 +5,5 @@ package com.example.robert.medius.main
  */
 interface MainInteractor {
     fun isTwitterLoggedIn(): Boolean
+    fun isFacebookLoggedIn(): Boolean
 }

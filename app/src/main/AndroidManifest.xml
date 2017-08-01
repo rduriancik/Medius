@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name=".login.ui.LoginActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/label_social_media_activity"
             android:parentActivityName=".main.ui.MainActivity">
             <meta-data

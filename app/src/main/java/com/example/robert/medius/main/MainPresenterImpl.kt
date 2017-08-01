@@ -1,5 +1,6 @@
 package com.example.robert.medius.main
 
+import com.example.robert.medius.main.ui.MainView
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 
@@ -9,8 +10,12 @@ import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 class MainPresenterImpl(override var view: MainView?, val interactor: MainInteractor)
     : MainPresenter<MainView> {
 
-    override fun onCreate() {
+    override fun onResume() {
         val fragments: MutableList<NewsFeedFragment> = mutableListOf()
+
+        if (interactor.isFacebookLoggedIn()) {
+            fragments.add(NewsFeedFragment.newInstance(NewsFeedType.FACEBOOK))
+        }
 
         if (interactor.isTwitterLoggedIn()) {
             fragments.add(NewsFeedFragment.newInstance(NewsFeedType.TWITTER))

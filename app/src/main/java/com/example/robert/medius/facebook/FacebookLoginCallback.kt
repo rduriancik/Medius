@@ -1,4 +1,4 @@
-package com.example.robert.medius
+package com.example.robert.medius.facebook
 
 /**
  * Created by robert on 1.8.2017.

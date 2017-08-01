@@ -1,4 +1,4 @@
-package com.example.robert.medius
+package com.example.robert.medius.facebook
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -10,7 +10,6 @@ import android.util.AttributeSet
 import android.widget.CompoundButton
 import android.widget.Switch
 import com.facebook.*
-import com.facebook.R
 import com.facebook.internal.FragmentWrapper
 import com.facebook.internal.LoginAuthorizationType
 import com.facebook.internal.Utility

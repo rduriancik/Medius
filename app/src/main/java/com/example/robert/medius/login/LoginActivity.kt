@@ -1,28 +1,21 @@
-package com.example.robert.medius.login.ui
+package com.example.robert.medius.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.example.robert.medius.FacebookLoginCallback
 import com.example.robert.medius.R
 import com.example.robert.medius.extensions.snackbar
-import com.example.robert.medius.login.LoginPresenter
-import com.example.robert.medius.login.di.DaggerLoginComponent
-import com.example.robert.medius.login.di.LoginModule
+import com.example.robert.medius.facebook.FacebookLoginCallback
 import com.example.robert.medius.twitter.TwitterLoginCallback
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
-import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity(), LoginView {
-
-    @Inject lateinit var presenter: LoginPresenter<LoginView>
+class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        setupInjection()
         setupSwitches()
     }
 
@@ -34,31 +27,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
         }
 
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        presenter.onDestroy()
-        super.onDestroy()
-    }
-
-    override fun onError(error: String) {
-        snackbar(container, error)
-    }
-
-    private fun setupInjection() {
-        DaggerLoginComponent.builder()
-                .loginModule(LoginModule(this))
-                .build()
-                .inject(this)
     }
 
     private fun setupSwitches() {

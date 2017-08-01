@@ -5,9 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.robert.medius.R
-import com.example.robert.medius.login.ui.LoginActivity
+import com.example.robert.medius.login.LoginActivity
 import com.example.robert.medius.main.MainPresenter
-import com.example.robert.medius.main.MainView
 import com.example.robert.medius.main.adapters.ViewPagerAdapter
 import com.example.robert.medius.main.di.DaggerMainComponent
 import com.example.robert.medius.main.di.MainModule
@@ -26,10 +25,13 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
         setupInjection()
 
-        presenter.onCreate()
-
         setSupportActionBar(toolbar)
         setupTabLayout()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
     }
 
     override fun onDestroy() {

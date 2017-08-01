@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
-    tools:context="com.example.robert.medius.login.ui.LoginActivity">
+    tools:context="com.example.robert.medius.login.LoginActivity">
 
     <TableRow android:layout_marginBottom="@dimen/medium_margin">
 
@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:text="@string/social_media_facebook" />
 
-        <com.example.robert.medius.FacebookLoginSwitch
+        <com.example.robert.medius.facebook.FacebookLoginSwitch
             android:id="@+id/switch_facebook"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
