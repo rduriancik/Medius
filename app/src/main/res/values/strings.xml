@@ -4,4 +4,8 @@
     <string name="label_social_media_activity">Social Media</string>
     <string name="social_media_facebook">Facebook</string>
     <string name="social_media_twitter">Twitter</string>
+    <string name="twitter_dialog_logout">Log out</string>
+    <string name="twitter_dialog_cancel">Cancel</string>
+    <string name="twitter_dialog_message_logged_in_as">Logged in as: %s</string>
+    <string name="twitter_dialog_message_logged_using">Logged in using Twitter</string>
 </resources>

@@ -1,11 +1,13 @@
 package com.example.robert.medius.twitter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import android.widget.CompoundButton
 import android.widget.Switch
+import com.example.robert.medius.R
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.twitter.sdk.android.core.internal.CommonUtils
@@ -23,7 +25,6 @@ class TwitterLoginSwitch : Switch {
 
     private val ERROR_MSG_NO_ACTIVITY = "TwitterLoginButton requires an activity." +
             " Override getActivity to provide the activity for this button."
-
 
     private var callback: TwitterLoginCallback? = null
     private val twitterCallback = createTwitterCallback()
@@ -89,12 +90,15 @@ class TwitterLoginSwitch : Switch {
         }
 
         override fun failure(exception: TwitterException?) {
-            this@TwitterLoginSwitch.setOnCheckedChangeListener(null)
-            toggle()
-            this@TwitterLoginSwitch.setOnCheckedChangeListener(listener)
-
+            toggleSwitch()
             callback?.failure(exception.toString())
         }
+    }
+
+    private fun toggleSwitch() {
+        super.setOnCheckedChangeListener(null)
+        super.toggle()
+        super.setOnCheckedChangeListener(listener)
     }
 
     private inner class LoginOnCheckedChangeListener : OnCheckedChangeListener {
@@ -105,9 +109,34 @@ class TwitterLoginSwitch : Switch {
             if (isChecked && !TwitterCore.getInstance().isLoggedIn()) {
                 authClient.authorize(activityRef!!.get(), twitterCallback)
             } else {
-                // TODO alertdialog like in the facebookloginswitch
-                TwitterCore.getInstance().sessionManager.clearActiveSession()
+                createLogoutDialog()
             }
+        }
+
+        private fun createLogoutDialog() {
+            val logout = resources.getString(
+                    R.string.twitter_dialog_logout)
+            val cancel = resources.getString(
+                    R.string.twitter_dialog_cancel)
+            val userName = TwitterCore.getInstance().getUserName()
+            val message: String
+            if (userName != null) {
+                message = String.format(
+                        resources.getString(R.string.twitter_dialog_message_logged_in_as), userName)
+            } else {
+                message = resources.getString(R.string.twitter_dialog_message_logged_using)
+            }
+
+            AlertDialog.Builder(context)
+                    .setMessage(message)
+                    .setCancelable(true)
+                    .setPositiveButton(logout) { _, _ ->
+                        TwitterCore.getInstance().sessionManager.clearActiveSession()
+                    }
+                    .setNegativeButton(cancel) { _, _ -> toggleSwitch() }
+                    .setOnCancelListener { toggleSwitch() }
+                    .create()
+                    .show()
         }
 
         private fun checkCallback(callback: Callback<*>?) {

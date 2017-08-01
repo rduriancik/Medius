@@ -284,12 +284,12 @@ class FacebookLoginSwitch : Switch {
             toggleSwitch()
             callback?.onCancel()
         }
+    }
 
-        fun toggleSwitch() {
-            this@FacebookLoginSwitch.setOnCheckedChangeListener(null)
-            this@FacebookLoginSwitch.toggle()
-            this@FacebookLoginSwitch.setOnCheckedChangeListener(listener)
-        }
+    private fun toggleSwitch() {
+        super.setOnCheckedChangeListener(null)
+        super.toggle()
+        super.setOnCheckedChangeListener(listener)
     }
 
     override fun setOnCheckedChangeListener(listener: OnCheckedChangeListener?) {
@@ -399,7 +399,8 @@ class FacebookLoginSwitch : Switch {
                     .setMessage(message)
                     .setCancelable(true)
                     .setPositiveButton(logout) { _, _ -> loginManager.logOut() }
-                    .setNegativeButton(cancel, { _, _ -> isChecked = true })
+                    .setNegativeButton(cancel) { _, _ -> toggleSwitch() }
+                    .setOnCancelListener { toggleSwitch() }
                     .create()
                     .show()
         }
