@@ -9,10 +9,7 @@ import com.example.robert.medius.extensions.snackbar
 import com.example.robert.medius.login.LoginPresenter
 import com.example.robert.medius.login.di.DaggerLoginComponent
 import com.example.robert.medius.login.di.LoginModule
-import com.twitter.sdk.android.core.Callback
-import com.twitter.sdk.android.core.Result
-import com.twitter.sdk.android.core.TwitterException
-import com.twitter.sdk.android.core.TwitterSession
+import com.example.robert.medius.twitter.TwitterLoginCallback
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -69,12 +66,12 @@ class LoginActivity : AppCompatActivity(), LoginView {
         switch_twitter.setCallback(createTwitterCallback())
     }
 
-    fun createTwitterCallback(): Callback<TwitterSession> = object : Callback<TwitterSession>() {
-        override fun success(result: Result<TwitterSession>?) {
+    fun createTwitterCallback(): TwitterLoginCallback = object : TwitterLoginCallback {
+        override fun success() {
             snackbar(container, "Success")
         }
 
-        override fun failure(exception: TwitterException?) {
+        override fun failure(error: String) {
             snackbar(container, "Failure")
         }
     }

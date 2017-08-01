@@ -6,10 +6,7 @@ import android.content.Intent
 import android.util.AttributeSet
 import android.widget.CompoundButton
 import android.widget.Switch
-import com.twitter.sdk.android.core.Callback
-import com.twitter.sdk.android.core.Twitter
-import com.twitter.sdk.android.core.TwitterCore
-import com.twitter.sdk.android.core.TwitterSession
+import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.twitter.sdk.android.core.internal.CommonUtils
 import java.lang.ref.WeakReference
@@ -24,17 +21,16 @@ class TwitterLoginSwitch : Switch {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
-    init {
-        checkTwitterCoreAndEnable()
-        if (TwitterCore.getInstance().isLoggedIn()) {
-            isChecked = true
-        }
-        super.setOnCheckedChangeListener(LoginOnCheckedChangeListener())
-    }
-
     private val ERROR_MSG_NO_ACTIVITY = "TwitterLoginButton requires an activity." +
             " Override getActivity to provide the activity for this button."
 
+
+    private var callback: TwitterLoginCallback? = null
+    private val twitterCallback = createTwitterCallback()
+    private var listener: OnCheckedChangeListener? = LoginOnCheckedChangeListener()
+    private val authClient: TwitterAuthClient by lazy {
+        TwitterAuthClient()
+    }
     private val activityRef: WeakReference<Activity>? by lazy {
         if (getContext() is Activity) {
             WeakReference<Activity>(getContext() as Activity)
@@ -44,19 +40,21 @@ class TwitterLoginSwitch : Switch {
             throw IllegalStateException(ERROR_MSG_NO_ACTIVITY)
         }
     }
-    private var callback: Callback<TwitterSession>? = null
-    private val authClient: TwitterAuthClient by lazy {
-        TwitterAuthClient()
+
+    init {
+        checkTwitterCoreAndEnable()
+        if (TwitterCore.getInstance().isLoggedIn()) {
+            isChecked = true
+        }
+        super.setOnCheckedChangeListener(listener)
     }
 
-    fun setCallback(callback: Callback<TwitterSession>?) {
-        if (callback == null) {
-            throw IllegalArgumentException("Callback cannot be null")
-        }
+
+    fun setCallback(callback: TwitterLoginCallback?) {
         this.callback = callback
     }
 
-    fun getCallback(): Callback<TwitterSession>? {
+    fun getCallback(): TwitterLoginCallback? {
         return callback
     }
 
@@ -66,6 +64,10 @@ class TwitterLoginSwitch : Switch {
         if (requestCode == authClient.requestCode) {
             authClient.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun setOnCheckedChangeListener(listener: OnCheckedChangeListener?) {
+        this.listener = listener
     }
 
     private fun checkTwitterCoreAndEnable() {
@@ -79,16 +81,29 @@ class TwitterLoginSwitch : Switch {
             Twitter.getLogger().e(TwitterCore.TAG, ex.message)
             isEnabled = false
         }
+    }
 
+    private fun createTwitterCallback() = object : Callback<TwitterSession>() {
+        override fun success(result: Result<TwitterSession>?) {
+            callback?.success()
+        }
+
+        override fun failure(exception: TwitterException?) {
+            this@TwitterLoginSwitch.setOnCheckedChangeListener(null)
+            toggle()
+            this@TwitterLoginSwitch.setOnCheckedChangeListener(listener)
+
+            callback?.failure(exception.toString())
+        }
     }
 
     private inner class LoginOnCheckedChangeListener : OnCheckedChangeListener {
         override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
             checkActivity(activityRef?.get())
-            checkCallback(callback)
+            checkCallback(twitterCallback)
 
             if (isChecked && !TwitterCore.getInstance().isLoggedIn()) {
-                authClient.authorize(activityRef!!.get(), callback)
+                authClient.authorize(activityRef!!.get(), twitterCallback)
             } else {
                 // TODO alertdialog like in the facebookloginswitch
                 TwitterCore.getInstance().sessionManager.clearActiveSession()

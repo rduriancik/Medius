@@ -33,7 +33,7 @@ class FacebookLoginSwitch : Switch {
     private val properties: LoginSwitchProperties = LoginSwitchProperties()
     private var parentFragment: FragmentWrapper? = null
     private var callback: FacebookLoginCallback? = null
-    private val listener = LoginOnCheckedChangeListener()
+    private var listener: OnCheckedChangeListener? = LoginOnCheckedChangeListener()
     private val facebookCallback = createFacebookCallback()
 
     init {
@@ -290,6 +290,10 @@ class FacebookLoginSwitch : Switch {
             this@FacebookLoginSwitch.toggle()
             this@FacebookLoginSwitch.setOnCheckedChangeListener(listener)
         }
+    }
+
+    override fun setOnCheckedChangeListener(listener: OnCheckedChangeListener?) {
+        this.listener = listener
     }
 
     private class LoginSwitchProperties {
