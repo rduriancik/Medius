@@ -11,4 +11,5 @@ interface LoginView : View {
     fun hideProgressBar()
     fun showButtons()
     fun hideButtons()
+    fun postDelay(task: () -> Unit, delay: Long)
 }

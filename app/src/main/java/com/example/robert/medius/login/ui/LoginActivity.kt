@@ -6,6 +6,7 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.example.robert.medius.R
+import com.example.robert.medius.login.LoginInteractor
 import com.example.robert.medius.login.LoginPresenter
 import com.example.robert.medius.login.di.DaggerLoginComponent
 import com.example.robert.medius.login.di.LoginModule
@@ -19,12 +20,14 @@ import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
 import com.twitter.sdk.android.core.TwitterSession
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity(), LoginView {
 
-    @Inject lateinit var presenter: LoginPresenter<LoginView>
+    @Inject lateinit var presenter: LoginPresenter<LoginView, LoginInteractor>
     private val facebookCallbackManager: CallbackManager = CallbackManager.Factory.create()
     private val handler = Handler()
 
@@ -62,15 +65,23 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun showButtons() {
-        button_container.visibility = View.VISIBLE
+        button_facebook.visibility = View.VISIBLE
+        button_twitter.visibility = View.VISIBLE
     }
 
     override fun hideButtons() {
-        button_container.visibility = View.GONE
+        button_facebook.visibility = View.GONE
+        button_twitter.visibility = View.GONE
+    }
+
+    override fun postDelay(task: () -> Unit, delay: Long) {
+        handler.postDelayed({ task() }, delay) // TODO check Kotlin cost - inline
     }
 
     override fun navigateToMainActivity() {
-        startActivity<MainActivity>()
+        startActivity(intentFor<MainActivity>()
+                .newTask()
+                .clearTask())
     }
 
     private fun setupInjection() {
@@ -116,7 +127,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            }, 1000)
+            }, 200)
         }
     }
 }

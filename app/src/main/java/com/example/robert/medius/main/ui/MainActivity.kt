@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.robert.medius.R
 import com.example.robert.medius.loginSettings.LoginSettingsActivity
+import com.example.robert.medius.main.MainInteractor
 import com.example.robert.medius.main.MainPresenter
 import com.example.robert.medius.main.adapters.ViewPagerAdapter
 import com.example.robert.medius.main.di.DaggerMainComponent
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    @Inject lateinit var presenter: MainPresenter<MainView>
+    @Inject lateinit var presenter: MainPresenter<MainView, MainInteractor>
     @Inject lateinit var viewPageAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

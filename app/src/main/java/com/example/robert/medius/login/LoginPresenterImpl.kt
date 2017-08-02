@@ -9,12 +9,16 @@ class LoginPresenterImpl(override var view: LoginView?, override val interactor:
     : LoginPresenter<LoginView, LoginInteractor> {
 
     override fun onResume() {
-        view?.hideButtons()
-        view?.showProgressBar()
+        view?.postDelay({
+            view?.hideButtons()
+            view?.showProgressBar()
 
-        // TODO control login
-
-        view?.hideProgressBar()
-        view?.showButtons()
+            if (interactor.isUserLoggedIn()) {
+                view?.navigateToMainActivity()
+            } else {
+                view?.hideProgressBar()
+                view?.showButtons()
+            }
+        }, 2000)
     }
 }

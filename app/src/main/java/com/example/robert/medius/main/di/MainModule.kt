@@ -28,7 +28,7 @@ class MainModule(val fragmentManager: FragmentManager, val view: MainView) {
     fun provideFragments(): MutableList<NewsFeedFragment> = mutableListOf<NewsFeedFragment>()
 
     @Provides
-    fun provideMainPresenter(mainInteractor: MainInteractor): MainPresenter<MainView>
+    fun provideMainPresenter(mainInteractor: MainInteractor): MainPresenter<MainView, MainInteractor>
             = MainPresenterImpl(view, mainInteractor)
 
     @Provides
