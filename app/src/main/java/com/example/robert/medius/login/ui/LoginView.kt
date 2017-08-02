@@ -7,4 +7,8 @@ import com.example.robert.medius.base.View
  */
 interface LoginView : View {
     fun navigateToMainActivity()
+    fun showProgressBar()
+    fun hideProgressBar()
+    fun showButtons()
+    fun hideButtons()
 }
