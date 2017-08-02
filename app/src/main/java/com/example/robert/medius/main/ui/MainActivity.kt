@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.robert.medius.R
-import com.example.robert.medius.loginSettings.LoginSettingsActivity
+import com.example.robert.medius.loginSettings.ui.LoginSettingsActivity
 import com.example.robert.medius.main.MainInteractor
 import com.example.robert.medius.main.MainPresenter
 import com.example.robert.medius.main.adapters.ViewPagerAdapter

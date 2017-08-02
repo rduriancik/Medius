@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
-    tools:context="com.example.robert.medius.loginSettings.LoginSettingsActivity">
+    tools:context="com.example.robert.medius.loginSettings.ui.LoginSettingsActivity">
 
     <TableRow android:layout_marginBottom="@dimen/medium_margin">
 
