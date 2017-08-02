@@ -8,4 +8,5 @@ import com.twitter.sdk.android.core.TwitterCore
 
 fun TwitterCore.isLoggedIn() = sessionManager.activeSession != null
 
-fun TwitterCore.getUserName() = sessionManager.activeSession?.userName
+val TwitterCore.userName
+    get() = sessionManager.activeSession?.userName

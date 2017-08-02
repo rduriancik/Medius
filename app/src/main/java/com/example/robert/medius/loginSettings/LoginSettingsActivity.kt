@@ -7,6 +7,7 @@ import com.example.robert.medius.R
 import com.example.robert.medius.extensions.snackbar
 import com.example.robert.medius.facebook.FacebookLoginCallback
 import com.example.robert.medius.twitter.TwitterLoginCallback
+import kotlinx.android.synthetic.main.activity_login_settings.*
 import org.jetbrains.anko.toast
 
 class LoginSettingsActivity : AppCompatActivity() {

@@ -118,7 +118,7 @@ class TwitterLoginSwitch : Switch {
                     R.string.twitter_dialog_logout)
             val cancel = resources.getString(
                     R.string.twitter_dialog_cancel)
-            val userName = TwitterCore.getInstance().getUserName()
+            val userName = TwitterCore.getInstance().userName
             val message: String
             if (userName != null) {
                 message = String.format(

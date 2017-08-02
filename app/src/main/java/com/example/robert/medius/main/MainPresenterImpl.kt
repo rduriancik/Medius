@@ -7,8 +7,8 @@ import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 /**
  * Created by robert on 31.7.2017.
  */
-class MainPresenterImpl(override var view: MainView?, val interactor: MainInteractor)
-    : MainPresenter<MainView> {
+class MainPresenterImpl(override var view: MainView?, override val interactor: MainInteractor)
+    : MainPresenter<MainView, MainInteractor> {
 
     override fun onResume() {
         val fragments: MutableList<NewsFeedFragment> = mutableListOf()
