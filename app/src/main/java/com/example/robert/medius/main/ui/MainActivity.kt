@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.robert.medius.R
-import com.example.robert.medius.login.LoginActivity
+import com.example.robert.medius.loginSettings.LoginSettingsActivity
 import com.example.robert.medius.main.MainPresenter
 import com.example.robert.medius.main.adapters.ViewPagerAdapter
 import com.example.robert.medius.main.di.DaggerMainComponent
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), MainView {
         val id = item.itemId
 
         if (id == R.id.action_social_media) {
-            startActivity<LoginActivity>()
+            startActivity<LoginSettingsActivity>()
             return true
         }
 
