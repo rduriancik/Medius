@@ -6,4 +6,5 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
     <dimen name="small_margin">8dp</dimen>
+    <dimen name="login_buttons_horizontal_margin">32dp</dimen>
 </resources>

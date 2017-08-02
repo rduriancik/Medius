@@ -6,8 +6,6 @@
     android:orientation="vertical"
     tools:context="com.example.robert.medius.login.ui.LoginActivity">
 
-    <!--TODO set style without appbar-->
-
     <TextView
         style="@style/TextAppearance.AppCompat.Display3"
         android:layout_width="match_parent"
@@ -23,6 +21,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/login_buttons_horizontal_margin"
+        android:paddingRight="@dimen/login_buttons_horizontal_margin"
         android:orientation="vertical">
 
         <ProgressBar
@@ -34,15 +34,17 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/button_facebook"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/small_margin"
-            android:padding="@dimen/medium_margin"
+            android:textSize="18sp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:visibility="gone" />
 
         <com.twitter.sdk.android.core.identity.TwitterLoginButton
             android:id="@+id/button_twitter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
