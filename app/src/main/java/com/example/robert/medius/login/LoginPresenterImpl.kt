@@ -19,6 +19,6 @@ class LoginPresenterImpl(override var view: LoginView?, override val interactor:
                 view?.hideProgressBar()
                 view?.showButtons()
             }
-        }, 2000)
+        }, 1000)
     }
 }

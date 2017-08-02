@@ -8,9 +8,17 @@ import com.example.robert.medius.loginSettings.ui.LoginSettingsView
  */
 class LoginSettingsPresenterImpl(override var view: LoginSettingsView?, override val interactor: LoginInteractor)
     : LoginSettingsPresenter<LoginSettingsView, LoginInteractor> {
-    override fun onResume() {
+    override fun onBackPressed() {
         if (!interactor.isUserLoggedIn()) {
             view?.navigateToLoginActivity()
+        }
+    }
+
+    override fun onHomeButtonPressed() {
+        if (!interactor.isUserLoggedIn()) {
+            view?.navigateToLoginActivity()
+        } else {
+            view?.navigateToParentActivity()
         }
     }
 }

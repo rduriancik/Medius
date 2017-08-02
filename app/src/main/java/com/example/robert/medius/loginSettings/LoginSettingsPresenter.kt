@@ -8,5 +8,6 @@ import com.example.robert.medius.base.View
  * Created by robert on 2.8.2017.
  */
 interface LoginSettingsPresenter<T : View, I : Interactor> : Presenter<T, I> {
-    fun onResume()
+    fun onBackPressed()
+    fun onHomeButtonPressed()
 }
