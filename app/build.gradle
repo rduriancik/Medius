@@ -20,6 +20,9 @@ android {
 
             buildConfigField "String", "TWITTER_KEY", project.property("TWITTER_KEY")
             buildConfigField "String", "TWITTER_SECRET", project.property("TWITTER_SECRET")
+
+            resValue "string", "facebook_app_id", project.property("FACEBOOK_KEY")
+            resValue "string", "fb_login_protocol_scheme", project.property("FACEBOOK_LOGIN_PROTOCOL_SCHEME")
         }
         release {
             minifyEnabled true
@@ -27,6 +30,9 @@ android {
 
             buildConfigField "String", "TWITTER_KEY", project.property("TWITTER_KEY")
             buildConfigField "String", "TWITTER_SECRET", project.property("TWITTER_SECRET")
+
+            resValue "string", "facebook_app_id", project.property("FACEBOOK_KEY")
+            resValue "string", "fb_login_protocol_scheme", project.property("FACEBOOK_LOGIN_PROTOCOL_SCHEME")
         }
     }
 }

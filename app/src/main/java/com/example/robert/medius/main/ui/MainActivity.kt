@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.robert.medius.R
-import com.example.robert.medius.login.ui.LoginActivity
+import com.example.robert.medius.loginSettings.ui.LoginSettingsActivity
+import com.example.robert.medius.main.MainInteractor
 import com.example.robert.medius.main.MainPresenter
-import com.example.robert.medius.main.MainView
 import com.example.robert.medius.main.adapters.ViewPagerAdapter
 import com.example.robert.medius.main.di.DaggerMainComponent
 import com.example.robert.medius.main.di.MainModule
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    @Inject lateinit var presenter: MainPresenter<MainView>
+    @Inject lateinit var presenter: MainPresenter<MainView, MainInteractor>
     @Inject lateinit var viewPageAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +26,13 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
         setupInjection()
 
-        presenter.onCreate()
-
         setSupportActionBar(toolbar)
         setupTabLayout()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
     }
 
     override fun onDestroy() {
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity(), MainView {
         val id = item.itemId
 
         if (id == R.id.action_social_media) {
-            startActivity<LoginActivity>()
+            startActivity<LoginSettingsActivity>()
             return true
         }
 

@@ -1,4 +1,4 @@
-package com.example.robert.medius.main
+package com.example.robert.medius.main.ui
 
 import com.example.robert.medius.base.View
 import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
