@@ -11,7 +11,7 @@ import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-class ViewPagerAdapter(fm: FragmentManager, val fragments: MutableList<NewsFeedFragment>) : FragmentPagerAdapter(fm) {
+class ViewPagerAdapter(fm: FragmentManager, private val fragments: MutableList<NewsFeedFragment>) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return fragments.get(position)
