@@ -7,4 +7,7 @@
     <dimen name="medium_margin">16dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="login_buttons_horizontal_margin">32dp</dimen>
+    <dimen name="user_avatar_photo_size">64dp</dimen>
+    <dimen name="logo_image_size">20dp</dimen>
+    <dimen name="content_newsfeed_default_elevation">6dp</dimen>
 </resources>

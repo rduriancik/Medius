@@ -62,4 +62,7 @@ dependencies {
     // Dagger
     compile "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    // CircleImageView
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

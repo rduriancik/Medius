@@ -8,4 +8,6 @@
     <string name="twitter_dialog_cancel">Cancel</string>
     <string name="twitter_dialog_message_logged_in_as">Logged in as: %s</string>
     <string name="twitter_dialog_message_logged_using">Logged in using Twitter</string>
+    <string name="content_newsfeed_logo_description">Social media logo</string>
+    <string name="content_newsfeed_user_photo_description">User avatar photo</string>
 </resources>
