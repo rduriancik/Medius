@@ -1,10 +1,13 @@
 package com.example.robert.medius.main.ui
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.robert.medius.R
+import com.example.robert.medius.extensions.setSelectedTabTextColor
 import com.example.robert.medius.loginSettings.ui.LoginSettingsActivity
 import com.example.robert.medius.main.MainInteractor
 import com.example.robert.medius.main.MainPresenter
@@ -43,6 +46,20 @@ class MainActivity : AppCompatActivity(), MainView {
     private fun setupTabLayout() {
         container.adapter = viewPageAdapter
         tabs.setupWithViewPager(container)
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val color = ContextCompat.getColor(this@MainActivity, viewPageAdapter.getPageColor(tab?.position ?: 0))
+                tabs.setSelectedTabIndicatorColor(color)
+                tabs.setSelectedTabTextColor(color)
+            }
+        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
