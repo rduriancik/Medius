@@ -12,6 +12,7 @@ import com.example.robert.medius.login.LoginInteractor
 import com.example.robert.medius.login.ui.LoginActivity
 import com.example.robert.medius.loginSettings.LoginSettingsPresenter
 import com.example.robert.medius.loginSettings.di.DaggerLoginSettingsComponent
+import com.example.robert.medius.loginSettings.di.LoginSettingsComponent
 import com.example.robert.medius.loginSettings.di.LoginSettingsModule
 import com.example.robert.medius.twitter.TwitterLoginCallback
 import kotlinx.android.synthetic.main.activity_login_settings.*
@@ -23,13 +24,18 @@ import javax.inject.Inject
 
 class LoginSettingsActivity : AppCompatActivity(), LoginSettingsView {
 
+    val loginSettingsComponent: LoginSettingsComponent by lazy {
+        DaggerLoginSettingsComponent.builder()
+                .loginSettingsModule(LoginSettingsModule(this))
+                .build()
+    }
     @Inject lateinit var presenter: LoginSettingsPresenter<LoginSettingsView, LoginInteractor>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_settings)
 
-        setupInjection()
+        loginSettingsComponent.inject(this)
         setupSwitches()
     }
 
@@ -69,13 +75,6 @@ class LoginSettingsActivity : AppCompatActivity(), LoginSettingsView {
 
     override fun navigateToParentActivity() {
         NavUtils.navigateUpFromSameTask(this)
-    }
-
-    private fun setupInjection() {
-        DaggerLoginSettingsComponent.builder()
-                .loginSettingsModule(LoginSettingsModule(this))
-                .build()
-                .inject(this)
     }
 
     private fun setupSwitches() {

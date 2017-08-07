@@ -13,6 +13,7 @@ import com.example.robert.medius.main.MainInteractor
 import com.example.robert.medius.main.MainPresenter
 import com.example.robert.medius.main.adapters.ViewPagerAdapter
 import com.example.robert.medius.main.di.DaggerMainComponent
+import com.example.robert.medius.main.di.MainComponent
 import com.example.robert.medius.main.di.MainModule
 import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,13 +22,18 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView {
 
+    val mainComponent: MainComponent by lazy {
+        DaggerMainComponent.builder()
+                .mainModule(MainModule(supportFragmentManager, this))
+                .build()
+    }
     @Inject lateinit var presenter: MainPresenter<MainView, MainInteractor>
     @Inject lateinit var viewPageAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupInjection()
+        mainComponent.inject(this)
 
         setSupportActionBar(toolbar)
         setupTabLayout()
@@ -80,13 +86,6 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun setContent(items: MutableList<NewsFeedFragment>) {
         viewPageAdapter.set(items)
-    }
-
-    private fun setupInjection() {
-        DaggerMainComponent.builder()
-                .mainModule(MainModule(supportFragmentManager, this))
-                .build()
-                .inject(this)
     }
 
 }

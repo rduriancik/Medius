@@ -9,6 +9,7 @@ import com.example.robert.medius.R
 import com.example.robert.medius.login.LoginInteractor
 import com.example.robert.medius.login.LoginPresenter
 import com.example.robert.medius.login.di.DaggerLoginComponent
+import com.example.robert.medius.login.di.LoginComponent
 import com.example.robert.medius.login.di.LoginModule
 import com.example.robert.medius.main.ui.MainActivity
 import com.facebook.CallbackManager
@@ -27,6 +28,11 @@ import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity(), LoginView {
 
+    val loginComponent: LoginComponent by lazy {
+        DaggerLoginComponent.builder()
+                .loginModule(LoginModule(this))
+                .build()
+    }
     @Inject lateinit var presenter: LoginPresenter<LoginView, LoginInteractor>
     private val facebookCallbackManager: CallbackManager = CallbackManager.Factory.create()
     private val handler = Handler()
@@ -35,7 +41,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        setupInjection()
+        loginComponent.inject(this)
         setupButtons()
     }
 
@@ -82,13 +88,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
         startActivity(intentFor<MainActivity>()
                 .newTask()
                 .clearTask())
-    }
-
-    private fun setupInjection() {
-        DaggerLoginComponent.builder()
-                .loginModule(LoginModule(this))
-                .build()
-                .inject(this)
     }
 
     private fun setupButtons() {
