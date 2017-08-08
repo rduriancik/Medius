@@ -8,6 +8,8 @@ import android.util.AttributeSet
 import android.widget.CompoundButton
 import android.widget.Switch
 import com.example.robert.medius.R
+import com.example.robert.medius.extensions.isLoggedIn
+import com.example.robert.medius.extensions.userName
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.twitter.sdk.android.core.internal.CommonUtils
@@ -33,8 +35,8 @@ class TwitterLoginSwitch : Switch {
         TwitterAuthClient()
     }
     private val activityRef: WeakReference<Activity>? by lazy {
-        if (getContext() is Activity) {
-            WeakReference<Activity>(getContext() as Activity)
+        if (context is Activity) {
+            WeakReference<Activity>(context as Activity)
         } else if (isInEditMode) {
             null
         } else {
