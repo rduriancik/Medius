@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.example.robert.medius.main.ui.MainActivity">
 
     <TextView
@@ -27,7 +28,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvNewsFeed"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
