@@ -6,6 +6,8 @@
     android:gravity="center"
     tools:context="com.example.robert.medius.main.ui.MainActivity">
 
+    <!--TODO change background-->
+
     <TextView
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
