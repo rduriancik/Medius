@@ -13,5 +13,8 @@ interface NewsFeedView : View {
     fun showProgress()
     fun showEmpty()
     fun showContent()
+    fun showError(error: String)
+    fun setRefreshing(isRefreshing: Boolean)
     fun addContent(items: List<News>)
+    fun setContent(items: List<News>)
 }
