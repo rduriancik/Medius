@@ -5,11 +5,14 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.AttributeSet
 import android.widget.CompoundButton
 import android.widget.Switch
 import com.facebook.*
+import com.facebook.appevents.AppEventsLogger
+import com.facebook.internal.AnalyticsEvents
 import com.facebook.internal.FragmentWrapper
 import com.facebook.internal.LoginAuthorizationType
 import com.facebook.internal.Utility
@@ -343,9 +346,14 @@ class FacebookLoginSwitch : Switch {
             } else {
                 performLogout(context)
             }
+
+            val logger = AppEventsLogger.newLogger(context)
+            val parameters = Bundle()
+            parameters.putInt("logging_in", if (isChecked) 1 else 0)
+            logger.logSdkEvent(AnalyticsEvents.EVENT_LOGIN_VIEW_USAGE, null, parameters)
         }
 
-        protected fun performLogin() {
+        private fun performLogin() {
             if (LoginAuthorizationType.PUBLISH == properties.authorizationType) {
                 if (getFragment() != null) {
                     loginManager.logInWithPublishPermissions(
@@ -377,7 +385,7 @@ class FacebookLoginSwitch : Switch {
             }
         }
 
-        protected fun performLogout(context: Context?) {
+        private fun performLogout(context: Context?) {
             val logout = resources.getString(
                     R.string.com_facebook_loginview_log_out_action)
             val cancel = resources.getString(
