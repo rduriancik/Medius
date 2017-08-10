@@ -95,6 +95,13 @@ class NewsFeedAdapter(private val news: MutableList<News?>, private val imageLoa
         notifyDataSetChanged()
     }
 
+    fun remove(position: Int) {
+        if (position in 0..news.size - 1) {
+            news.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
     class NewsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         private val userPhoto: CircleImageView = view.findViewById(R.id.userPhoto) as CircleImageView

@@ -137,4 +137,8 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
     override fun setContent(items: List<News>) {
         adapter.set(items)
     }
+
+    override fun removeItem(position: Int) {
+        adapter.remove(position)
+    }
 }

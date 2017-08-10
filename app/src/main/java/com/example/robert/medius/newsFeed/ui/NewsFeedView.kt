@@ -17,4 +17,5 @@ interface NewsFeedView : View {
     fun setRefreshing(isRefreshing: Boolean)
     fun addContent(items: List<News>)
     fun setContent(items: List<News>)
+    fun removeItem(position: Int)
 }
