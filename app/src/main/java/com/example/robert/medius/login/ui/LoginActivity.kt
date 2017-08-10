@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun postDelay(task: () -> Unit, delay: Long) {
-        handler.postDelayed({ task() }, delay) // TODO check Kotlin cost - inline
+        handler.postDelayed({ task() }, delay)
     }
 
     override fun navigateToMainActivity() {

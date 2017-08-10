@@ -59,11 +59,28 @@
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@id/userName"
         android:layout_below="@id/userName"
-        android:layout_marginBottom="@dimen/medium_margin"
+
         android:layout_marginEnd="@dimen/medium_margin"
         android:layout_marginTop="4dp"
+        android:autoLink="web"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@android:color/black"
         tools:text="Text" />
+
+    <FrameLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignEnd="@id/text"
+        android:layout_alignStart="@id/text"
+        android:layout_below="@id/text"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginTop="4dp"
+        android:visibility="gone">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+    </FrameLayout>
 
 </RelativeLayout>
