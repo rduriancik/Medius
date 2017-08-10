@@ -1,10 +1,7 @@
 package com.example.robert.medius.newsFeed
 
 import com.example.robert.medius.libs.base.EventBus
-import com.example.robert.medius.newsFeed.events.InitTimelineEvent
-import com.example.robert.medius.newsFeed.events.LoadMoreEvent
 import com.example.robert.medius.newsFeed.events.NewsFeedEvent
-import com.example.robert.medius.newsFeed.events.RefreshEvent
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.example.robert.medius.newsFeed.ui.NewsFeedView
 import org.greenrobot.eventbus.Subscribe
@@ -35,7 +32,7 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
         interactor.refreshTimeline(view?.feedType ?: NewsFeedType.NONE)
     }
 
-    override fun onLoadMore(id: Long) {
+    override fun onLoadMore(id: Long?) {
         // TODO implement
     }
 
@@ -43,7 +40,7 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
     override fun onEventMainThread(newsFeedEvent: NewsFeedEvent) {
         if (newsFeedEvent.newsFeedType == view?.feedType) {
             when (newsFeedEvent) {
-                is InitTimelineEvent -> {
+                is NewsFeedEvent.InitTimelineEvent -> {
                     if (newsFeedEvent.news != null) {
                         view?.showContent()
                         view?.setContent(newsFeedEvent.news!!)
@@ -54,7 +51,7 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
                     newsFeedEvent.error?.let { view?.showError(it) }
                 }
 
-                is RefreshEvent -> {
+                is NewsFeedEvent.RefreshEvent -> {
                     newsFeedEvent.news?.let {
                         view?.setContent(it)
                         view?.setRefreshing(false)
@@ -63,7 +60,7 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
                     newsFeedEvent.error?.let { view?.showError(it) }
                 }
 
-                is LoadMoreEvent -> {
+                is NewsFeedEvent.LoadMoreEvent -> {
                     // TODO implement
                 }
             }

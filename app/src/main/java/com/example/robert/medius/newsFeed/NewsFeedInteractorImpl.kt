@@ -12,7 +12,7 @@ class NewsFeedInteractorImpl(val twitterApiHelper: TwitterApiHelper) : NewsFeedI
         when (feedType) {
             NewsFeedType.FACEBOOK -> return // TODO
             NewsFeedType.TWITTER -> twitterApiHelper.initTimeline()
-            NewsFeedType.NONE -> return // TODO
+            NewsFeedType.NONE -> throw IllegalStateException("Calling this method when a NewsFeedType of the fragment is equals to NONE is not allowed")
         }
     }
 
@@ -20,7 +20,7 @@ class NewsFeedInteractorImpl(val twitterApiHelper: TwitterApiHelper) : NewsFeedI
         when (feedType) {
             NewsFeedType.FACEBOOK -> return // TODO
             NewsFeedType.TWITTER -> twitterApiHelper.refreshTimeline()
-            NewsFeedType.NONE -> return // TODO
+            NewsFeedType.NONE -> throw IllegalStateException("Calling this method when a NewsFeedType of the fragment is equals to NONE is not allowed")
         }
     }
 
@@ -28,7 +28,7 @@ class NewsFeedInteractorImpl(val twitterApiHelper: TwitterApiHelper) : NewsFeedI
         when (feedType) {
             NewsFeedType.FACEBOOK -> return // TODO
             NewsFeedType.TWITTER -> twitterApiHelper.loadMoreTimeline()
-            NewsFeedType.NONE -> return // TODO
+            NewsFeedType.NONE -> throw IllegalStateException("Calling this method when a NewsFeedType of the fragment is equals to NONE is not allowed")
         }
     }
 }

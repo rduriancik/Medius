@@ -12,7 +12,7 @@ interface NewsFeedPresenter<T : View, I : Interactor> : Presenter<T, I> {
     fun onPause()
     fun onResume()
     fun onRefresh()
-    fun onLoadMore(id: Long)
+    fun onLoadMore(id: Long?)
     fun getInitItems()
     fun onEventMainThread(newsFeedEvent: NewsFeedEvent)
 }

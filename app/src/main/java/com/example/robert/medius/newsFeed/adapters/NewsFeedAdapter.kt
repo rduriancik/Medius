@@ -44,7 +44,7 @@ class NewsFeedAdapter(private val news: MutableList<News?>, private val imageLoa
                     totalItemCount = linearLayoutManager.itemCount
                     lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
                     if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                        onLoadMoreListener?.onLoadMore()
+                        onLoadMoreListener?.onLoadMore(news.last()?.id)
                         loading = true
                     }
 

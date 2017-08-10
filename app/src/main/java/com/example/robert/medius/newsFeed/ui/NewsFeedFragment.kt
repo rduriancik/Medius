@@ -12,6 +12,7 @@ import com.example.robert.medius.R
 import com.example.robert.medius.libs.di.LibsModule
 import com.example.robert.medius.newsFeed.NewsFeedInteractor
 import com.example.robert.medius.newsFeed.NewsFeedPresenter
+import com.example.robert.medius.newsFeed.OnLoadMoreListener
 import com.example.robert.medius.newsFeed.adapters.NewsFeedAdapter
 import com.example.robert.medius.newsFeed.di.DaggerNewsFeedComponent
 import com.example.robert.medius.newsFeed.di.NewsFeedComponent
@@ -70,6 +71,11 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
 
         val linearLayoutManager = LinearLayoutManager(context)
         rvNewsFeed.layoutManager = linearLayoutManager
+        adapter.onLoadMoreListener = object : OnLoadMoreListener {
+            override fun onLoadMore(id: Long?) {
+                presenter.onLoadMore(id) // TODO check if its called at the beginning and adjust events and initial filling afterwards
+            }
+        }
         rvNewsFeed.adapter = adapter
         rvNewsFeed.addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
 
