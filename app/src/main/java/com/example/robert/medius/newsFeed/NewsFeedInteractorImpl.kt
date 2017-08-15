@@ -24,10 +24,10 @@ class NewsFeedInteractorImpl(val twitterApiHelper: TwitterApiHelper) : NewsFeedI
         }
     }
 
-    override fun loadMoreTimeline(lastItem: News, feedType: NewsFeedType) {
+    override fun loadMoreTimeline(lastItem: News?, feedType: NewsFeedType) {
         when (feedType) {
             NewsFeedType.FACEBOOK -> return // TODO
-            NewsFeedType.TWITTER -> twitterApiHelper.loadMoreTimeline()
+            NewsFeedType.TWITTER -> twitterApiHelper.loadMoreTimeline(if (lastItem != null) lastItem.id - 1 else null) // todo it's called two times because of the listener
             NewsFeedType.NONE -> throw IllegalStateException("Calling this method when a NewsFeedType of the fragment is equals to NONE is not allowed")
         }
     }

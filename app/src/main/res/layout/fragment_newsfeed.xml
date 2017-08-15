@@ -15,7 +15,9 @@
         android:visibility="gone"
         tools:text="No feed" />
 
-    <include layout="@layout/progress_view" />
+    <include
+        layout="@layout/progress_view"
+        android:id="@+id/progressView" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"

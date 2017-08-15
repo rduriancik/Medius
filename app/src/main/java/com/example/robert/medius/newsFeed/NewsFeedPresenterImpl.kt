@@ -1,6 +1,7 @@
 package com.example.robert.medius.newsFeed
 
 import com.example.robert.medius.libs.base.EventBus
+import com.example.robert.medius.newsFeed.entities.News
 import com.example.robert.medius.newsFeed.events.NewsFeedEvent
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.example.robert.medius.newsFeed.ui.NewsFeedView
@@ -32,8 +33,10 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
         interactor.refreshTimeline(view?.feedType ?: NewsFeedType.NONE)
     }
 
-    override fun onLoadMore(id: Long?) {
-        // TODO implement
+    override fun onLoadMore(news: News?) {
+        view?.postDelay({
+            interactor.loadMoreTimeline(news, view?.feedType ?: NewsFeedType.NONE)
+        }, 1000)
     }
 
     @Subscribe
@@ -61,7 +64,9 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
                 }
 
                 is NewsFeedEvent.LoadMoreEvent -> {
-                    // TODO implement
+                    newsFeedEvent.news?.let {
+                        view?.addContent(it)
+                    }
                 }
             }
 

@@ -10,5 +10,5 @@ import com.example.robert.medius.newsFeed.types.NewsFeedType
 interface NewsFeedInteractor : Interactor {
     fun initTimeline(feedType: NewsFeedType)
     fun refreshTimeline(feedType: NewsFeedType)
-    fun loadMoreTimeline(lastItem: News, feedType: NewsFeedType)
+    fun loadMoreTimeline(lastItem: News?, feedType: NewsFeedType)
 }

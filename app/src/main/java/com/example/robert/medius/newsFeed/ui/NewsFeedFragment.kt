@@ -1,6 +1,7 @@
 package com.example.robert.medius.newsFeed.ui
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
@@ -12,7 +13,7 @@ import com.example.robert.medius.R
 import com.example.robert.medius.libs.di.LibsModule
 import com.example.robert.medius.newsFeed.NewsFeedInteractor
 import com.example.robert.medius.newsFeed.NewsFeedPresenter
-import com.example.robert.medius.newsFeed.OnLoadMoreListener
+import com.example.robert.medius.newsFeed.OnLoadMoreScrollListener
 import com.example.robert.medius.newsFeed.adapters.NewsFeedAdapter
 import com.example.robert.medius.newsFeed.di.DaggerNewsFeedComponent
 import com.example.robert.medius.newsFeed.di.NewsFeedComponent
@@ -49,6 +50,7 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
     override var feedType: NewsFeedType = NewsFeedType.NONE
     @Inject lateinit var presenter: NewsFeedPresenter<NewsFeedView, NewsFeedInteractor>
     @Inject lateinit var adapter: NewsFeedAdapter
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,15 +71,14 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
         swipeRefreshLayout.setOnRefreshListener { presenter.onRefresh() }
         swipeRefreshLayout.setColorSchemeResources(feedType.color)
 
-        val linearLayoutManager = LinearLayoutManager(context)
-        rvNewsFeed.layoutManager = linearLayoutManager
-        adapter.onLoadMoreListener = object : OnLoadMoreListener {
-            override fun onLoadMore(id: Long?) {
-                presenter.onLoadMore(id) // TODO check if its called at the beginning and adjust events and initial filling afterwards
-            }
-        }
+        rvNewsFeed.layoutManager = LinearLayoutManager(context)
         rvNewsFeed.adapter = adapter
-        rvNewsFeed.addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
+        rvNewsFeed.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        rvNewsFeed.addOnScrollListener(object : OnLoadMoreScrollListener() {
+            override fun onLoadMore() {
+                presenter.onLoadMore(adapter.getLastItem())
+            }
+        })
 
         if (adapter.itemCount == 0) {
             presenter.getInitItems()
@@ -107,18 +108,18 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
     override fun showProgress() {
         swipeRefreshLayout.visibility = View.GONE
         emptyView.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
+        progressView.visibility = View.VISIBLE
     }
 
     override fun showEmpty() {
         swipeRefreshLayout.visibility = View.GONE
-        progressBar.visibility = View.GONE
+        progressView.visibility = View.GONE
         emptyView.visibility = View.VISIBLE
     }
 
     override fun showContent() {
         emptyView.visibility = View.GONE
-        progressBar.visibility = View.GONE
+        progressView.visibility = View.GONE
         swipeRefreshLayout.visibility = View.VISIBLE
     }
 
@@ -130,15 +131,19 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
         context.toast(error)
     }
 
+    override fun postDelay(task: () -> Unit, delay: Long) {
+        handler.postDelayed({ task() }, delay)
+    }
+
     override fun addContent(items: List<News>) {
-        adapter.addAll(items)
+        rvNewsFeed.post { adapter.addAll(items) }
     }
 
     override fun setContent(items: List<News>) {
-        adapter.set(items)
+        rvNewsFeed.post { adapter.set(items) }
     }
 
-    override fun removeItem(position: Int) {
-        adapter.remove(position)
+    override fun setIsMoreItems(isMoreItems: Boolean) {
+        adapter.isMoreItems = isMoreItems
     }
 }

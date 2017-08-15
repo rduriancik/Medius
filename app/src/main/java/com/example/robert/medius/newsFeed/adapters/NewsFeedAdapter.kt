@@ -2,7 +2,6 @@ package com.example.robert.medius.newsFeed.adapters
 
 import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.robert.medius.R
 import com.example.robert.medius.libs.base.ImageLoader
-import com.example.robert.medius.newsFeed.OnLoadMoreListener
 import com.example.robert.medius.newsFeed.entities.News
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.browse
@@ -22,41 +20,20 @@ import org.jetbrains.anko.browse
  * Created by robert on 4.7.2017.
  */
 
-class NewsFeedAdapter(private val news: MutableList<News?>, private val imageLoader: ImageLoader,
-                      val recyclerView: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoader: ImageLoader)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val VIEW_ITEM = 1
-    private val VIEW_PROG = 0
-
-    var loading = false;
-    var onLoadMoreListener: OnLoadMoreListener? = null
-    private val visibleThreshold = 5
-    private var lastVisibleItem = 0
-    private var totalItemCount = 0
-
-    init {
-        if (recyclerView.layoutManager is LinearLayoutManager) {
-            val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-
-                    totalItemCount = linearLayoutManager.itemCount
-                    lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
-                    if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                        onLoadMoreListener?.onLoadMore(news.last()?.id)
-                        loading = true
-                    }
-
-                }
-            })
-        }
+    companion object {
+        const val VIEW_TYPE_ITEM = 1
+        const val VIEW_TYPE_LOADING = 0
     }
+
+    var isMoreItems = false
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         when (holder) {
             is NewsViewHolder -> {
-                holder.bind(news[position]!!, imageLoader)
+                holder.bind(news[position], imageLoader)
             }
             is ProgressViewHolder -> {
 //                holder?.setProgressBarColor(news[position]?.) FIXME
@@ -64,14 +41,12 @@ class NewsFeedAdapter(private val news: MutableList<News?>, private val imageLoa
         }
     }
 
-    override fun getItemCount(): Int {
-        return news.size;
-    }
+    override fun getItemCount(): Int = news.size + 1
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val viewHolder: RecyclerView.ViewHolder
 
-        if (viewType == VIEW_ITEM) {
+        if (viewType == VIEW_TYPE_ITEM || !isMoreItems) {
             val view = LayoutInflater.from(parent?.context).inflate(R.layout.content_newsfeed, parent, false)
             viewHolder = NewsViewHolder(view)
         } else {
@@ -83,7 +58,7 @@ class NewsFeedAdapter(private val news: MutableList<News?>, private val imageLoa
     }
 
     override fun getItemViewType(position: Int): Int
-            = if (news[position] != null) VIEW_ITEM else VIEW_PROG
+            = if (position < news.size) VIEW_TYPE_ITEM else VIEW_TYPE_LOADING
 
     fun set(news: List<News>) {
         this.news.clear()
@@ -95,12 +70,7 @@ class NewsFeedAdapter(private val news: MutableList<News?>, private val imageLoa
         notifyDataSetChanged()
     }
 
-    fun remove(position: Int) {
-        if (position in 0..news.size - 1) {
-            news.removeAt(position)
-            notifyItemRemoved(position)
-        }
-    }
+    fun getLastItem() = news.lastOrNull()
 
     class NewsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
