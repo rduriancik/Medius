@@ -8,13 +8,6 @@ import com.example.robert.medius.twitter.TwitterApiHelper
  * Created by robert on 3.8.2017.
  */
 class NewsFeedInteractorImpl(val twitterApiHelper: TwitterApiHelper) : NewsFeedInteractor {
-    override fun initTimeline(feedType: NewsFeedType) {
-        when (feedType) {
-            NewsFeedType.FACEBOOK -> return // TODO
-            NewsFeedType.TWITTER -> twitterApiHelper.initTimeline()
-            NewsFeedType.NONE -> throw IllegalStateException("Calling this method when a NewsFeedType of the fragment is equals to NONE is not allowed")
-        }
-    }
 
     override fun refreshTimeline(feedType: NewsFeedType) {
         when (feedType) {

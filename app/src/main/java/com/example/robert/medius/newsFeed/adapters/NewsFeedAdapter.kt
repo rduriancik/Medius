@@ -22,13 +22,14 @@ import org.jetbrains.anko.browse
 
 class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoader: ImageLoader)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val TAG = "ADAPTER"
 
     companion object {
         const val VIEW_TYPE_ITEM = 1
         const val VIEW_TYPE_LOADING = 0
     }
 
-    var isMoreItems = false
+    var isMoreItems = true
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         when (holder) {

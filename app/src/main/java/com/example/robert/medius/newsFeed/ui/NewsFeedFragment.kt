@@ -79,10 +79,6 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
                 presenter.onLoadMore(adapter.getLastItem())
             }
         })
-
-        if (adapter.itemCount == 0) {
-            presenter.getInitItems()
-        }
     }
 
     override fun onResume() {
@@ -146,4 +142,6 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
     override fun setIsMoreItems(isMoreItems: Boolean) {
         adapter.isMoreItems = isMoreItems
     }
+
+    override fun isEmpty(): Boolean = adapter.itemCount == 1
 }

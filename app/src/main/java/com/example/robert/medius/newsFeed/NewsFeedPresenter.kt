@@ -14,6 +14,5 @@ interface NewsFeedPresenter<T : View, I : Interactor> : Presenter<T, I> {
     fun onResume()
     fun onRefresh()
     fun onLoadMore(news: News?)
-    fun getInitItems()
     fun onEventMainThread(newsFeedEvent: NewsFeedEvent)
 }
