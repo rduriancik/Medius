@@ -1,5 +1,6 @@
 package com.example.robert.medius.newsFeed.di
 
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.base.EventBus
 import com.example.robert.medius.libs.base.ImageLoader
 import com.example.robert.medius.newsFeed.NewsFeedInteractor
@@ -7,7 +8,6 @@ import com.example.robert.medius.newsFeed.NewsFeedInteractorImpl
 import com.example.robert.medius.newsFeed.NewsFeedPresenter
 import com.example.robert.medius.newsFeed.NewsFeedPresenterImpl
 import com.example.robert.medius.newsFeed.adapters.NewsFeedAdapter
-import com.example.robert.medius.newsFeed.entities.News
 import com.example.robert.medius.newsFeed.ui.NewsFeedView
 import com.example.robert.medius.twitter.TwitterApiHelper
 import com.twitter.sdk.android.core.TwitterCore

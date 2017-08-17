@@ -1,7 +1,7 @@
 package com.example.robert.medius.twitter
 
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.base.EventBus
-import com.example.robert.medius.newsFeed.entities.News
 import com.example.robert.medius.newsFeed.events.NewsFeedEvent
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.twitter.sdk.android.core.Callback

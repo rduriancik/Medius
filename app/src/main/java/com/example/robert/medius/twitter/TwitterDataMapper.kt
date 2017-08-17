@@ -1,8 +1,8 @@
 package com.example.robert.medius.twitter
 
-import com.example.robert.medius.newsFeed.entities.News
-import com.example.robert.medius.newsFeed.entities.NewsMedia
-import com.example.robert.medius.newsFeed.entities.User
+import com.example.robert.medius.entities.News
+import com.example.robert.medius.entities.NewsMedia
+import com.example.robert.medius.entities.User
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.core.models.User as TwitterUser

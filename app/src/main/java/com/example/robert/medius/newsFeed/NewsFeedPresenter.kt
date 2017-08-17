@@ -3,7 +3,7 @@ package com.example.robert.medius.newsFeed
 import com.example.robert.medius.base.Interactor
 import com.example.robert.medius.base.Presenter
 import com.example.robert.medius.base.View
-import com.example.robert.medius.newsFeed.entities.News
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.newsFeed.events.NewsFeedEvent
 
 /**

@@ -1,4 +1,4 @@
-package com.example.robert.medius.newsFeed.entities
+package com.example.robert.medius.entities
 
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 

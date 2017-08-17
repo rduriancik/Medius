@@ -10,15 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.robert.medius.R
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.di.LibsModule
 import com.example.robert.medius.newsFeed.NewsFeedInteractor
 import com.example.robert.medius.newsFeed.NewsFeedPresenter
-import com.example.robert.medius.newsFeed.OnLoadMoreScrollListener
 import com.example.robert.medius.newsFeed.adapters.NewsFeedAdapter
 import com.example.robert.medius.newsFeed.di.DaggerNewsFeedComponent
 import com.example.robert.medius.newsFeed.di.NewsFeedComponent
 import com.example.robert.medius.newsFeed.di.NewsFeedModule
-import com.example.robert.medius.newsFeed.entities.News
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import kotlinx.android.synthetic.main.fragment_newsfeed.*
 import kotlinx.android.synthetic.main.progress_view.*

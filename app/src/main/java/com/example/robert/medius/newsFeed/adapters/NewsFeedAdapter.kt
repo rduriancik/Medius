@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.robert.medius.R
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.base.ImageLoader
-import com.example.robert.medius.newsFeed.entities.News
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.browse
 
