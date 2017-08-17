@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.robert.medius.R
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.base.ImageLoader
-import com.example.robert.medius.newsFeed.entities.News
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.browse
 
@@ -22,13 +22,14 @@ import org.jetbrains.anko.browse
 
 class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoader: ImageLoader)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val TAG = "ADAPTER"
 
     companion object {
         const val VIEW_TYPE_ITEM = 1
         const val VIEW_TYPE_LOADING = 0
     }
 
-    var isMoreItems = false
+    var isMoreItems = true
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         when (holder) {
@@ -36,7 +37,9 @@ class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoad
                 holder.bind(news[position], imageLoader)
             }
             is ProgressViewHolder -> {
-//                holder?.setProgressBarColor(news[position]?.) FIXME
+                getLastItem()?.let {
+                    holder.setProgressBarColor(it.newsFeedType.color)
+                }
             }
         }
     }
@@ -87,7 +90,7 @@ class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoad
             userName.setOnClickListener { view.context.browse(news.user.userUrl ?: "") } //FIXME
             date.text = news.createdAt
             imageLoader.load(news.user.photoUrl, userPhoto)
-            imageLoader.load(news.socialMediaLogo, socialMediaLogo)
+            imageLoader.load(news.newsFeedType.logo, socialMediaLogo)
 //
 //            webView.settings.javaScriptEnabled = true
 //            webView.setWebChromeClient(WebChromeClient())

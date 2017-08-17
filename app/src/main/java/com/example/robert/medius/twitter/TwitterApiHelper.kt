@@ -1,10 +1,8 @@
 package com.example.robert.medius.twitter
 
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.base.EventBus
-import com.example.robert.medius.newsFeed.entities.News
-import com.example.robert.medius.newsFeed.events.InitTimelineEvent
-import com.example.robert.medius.newsFeed.events.LoadMoreEvent
-import com.example.robert.medius.newsFeed.events.RefreshEvent
+import com.example.robert.medius.newsFeed.events.NewsFeedEvent
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
@@ -17,24 +15,17 @@ import com.twitter.sdk.android.core.services.StatusesService
  */
 
 class TwitterApiHelper(val statusesService: StatusesService, val eventBus: EventBus) {
-
-    fun initTimeline() {
-        getTimeline { news, error -> eventBus.post(InitTimelineEvent(news, error, NewsFeedType.TWITTER)) }
-    }
-
-    fun loadMoreTimeline(sinceId: Long? = null,
-                         maxId: Long? = null) {
-        getTimeline(sinceId = sinceId, maxId = maxId) {
+    fun loadMoreTimeline(maxId: Long? = null) {
+        getTimeline(maxId = maxId) {
             news, error ->
-            eventBus.post(LoadMoreEvent(news, error, NewsFeedType.TWITTER))
+            eventBus.post(NewsFeedEvent.LoadMoreEvent(news, error, NewsFeedType.TWITTER))
         }
     }
 
     fun refreshTimeline() {
-        getTimeline { news, error -> eventBus.post(RefreshEvent(news, error, NewsFeedType.TWITTER)) }
+        getTimeline { news, error -> eventBus.post(NewsFeedEvent.RefreshEvent(news, error, NewsFeedType.TWITTER)) }
     }
 
-    // TODO check kotlin cost - inline
     private fun getTimeline(count: Int = 50,
                             sinceId: Long? = null,
                             maxId: Long? = null,

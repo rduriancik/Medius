@@ -1,13 +1,13 @@
-package com.example.robert.medius.newsFeed.entities
+package com.example.robert.medius.entities
 
-import android.support.annotation.DrawableRes
+import com.example.robert.medius.newsFeed.types.NewsFeedType
 
 /**
  * Created by robert on 3.8.2017.
  */
 
 data class News(val id: Long, val createdAt: String, val user: User,
-                val newsMedia: NewsMedia, @DrawableRes val socialMediaLogo: Int)
+                val newsMedia: NewsMedia, val newsFeedType: NewsFeedType)
 
 data class NewsMedia(val text: String, val url: String)
 

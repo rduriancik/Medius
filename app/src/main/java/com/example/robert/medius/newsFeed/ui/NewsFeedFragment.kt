@@ -10,15 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.robert.medius.R
+import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.di.LibsModule
 import com.example.robert.medius.newsFeed.NewsFeedInteractor
 import com.example.robert.medius.newsFeed.NewsFeedPresenter
-import com.example.robert.medius.newsFeed.OnLoadMoreScrollListener
 import com.example.robert.medius.newsFeed.adapters.NewsFeedAdapter
 import com.example.robert.medius.newsFeed.di.DaggerNewsFeedComponent
 import com.example.robert.medius.newsFeed.di.NewsFeedComponent
 import com.example.robert.medius.newsFeed.di.NewsFeedModule
-import com.example.robert.medius.newsFeed.entities.News
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import kotlinx.android.synthetic.main.fragment_newsfeed.*
 import kotlinx.android.synthetic.main.progress_view.*
@@ -79,10 +78,6 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
                 presenter.onLoadMore(adapter.getLastItem())
             }
         })
-
-        if (adapter.itemCount == 0) {
-            presenter.getInitItems()
-        }
     }
 
     override fun onResume() {
@@ -107,13 +102,13 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
 
     override fun showProgress() {
         swipeRefreshLayout.visibility = View.GONE
-        emptyView.visibility = View.GONE
         progressView.visibility = View.VISIBLE
     }
 
     override fun showEmpty() {
-        swipeRefreshLayout.visibility = View.GONE
+        rvNewsFeed.visibility = View.GONE
         progressView.visibility = View.GONE
+        swipeRefreshLayout.visibility = View.VISIBLE
         emptyView.visibility = View.VISIBLE
     }
 
@@ -121,6 +116,7 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
         emptyView.visibility = View.GONE
         progressView.visibility = View.GONE
         swipeRefreshLayout.visibility = View.VISIBLE
+        rvNewsFeed.visibility = View.VISIBLE
     }
 
     override fun setRefreshing(isRefreshing: Boolean) {
@@ -136,14 +132,16 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
     }
 
     override fun addContent(items: List<News>) {
-        rvNewsFeed.post { adapter.addAll(items) }
+        adapter.addAll(items)
     }
 
     override fun setContent(items: List<News>) {
-        rvNewsFeed.post { adapter.set(items) }
+        adapter.set(items)
     }
 
     override fun setIsMoreItems(isMoreItems: Boolean) {
         adapter.isMoreItems = isMoreItems
     }
+
+    override fun getItemCount(): Int = adapter.itemCount
 }

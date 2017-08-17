@@ -1,4 +1,4 @@
-package com.example.robert.medius.newsFeed
+package com.example.robert.medius.newsFeed.ui
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView

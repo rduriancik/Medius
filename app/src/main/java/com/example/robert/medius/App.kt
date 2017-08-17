@@ -7,6 +7,7 @@ import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
 
+
 /**
  * Created by robert on 27.7.2017.
  */
@@ -25,5 +26,25 @@ class App : Application() {
                 .build()
 
         Twitter.initialize(config)
+
+        // FIXME
+//        val activeSession = TwitterCore.getInstance()
+//                .sessionManager.activeSession
+//
+//        // example of custom OkHttpClient with logging HttpLoggingInterceptor
+//        val loggingInterceptor = HttpLoggingInterceptor()
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+//        val customClient = OkHttpClient.Builder()
+//                .addInterceptor(loggingInterceptor).build()
+//
+//        // pass custom OkHttpClient into TwitterApiClient and add to TwitterCore
+//        val customApiClient: TwitterApiClient
+//        if (activeSession != null) {
+//            customApiClient = TwitterApiClient(activeSession, customClient)
+//            TwitterCore.getInstance().addApiClient(activeSession, customApiClient)
+//        } else {
+//            customApiClient = TwitterApiClient(customClient)
+//            TwitterCore.getInstance().addGuestApiClient(customApiClient)
+//        }
     }
 }
