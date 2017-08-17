@@ -1,6 +1,6 @@
 package com.example.robert.medius.login
 
-import com.example.robert.medius.twitter.isLoggedIn
+import com.example.robert.medius.extensions.isLoggedIn
 import com.facebook.AccessToken
 import com.twitter.sdk.android.core.TwitterCore
 

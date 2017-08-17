@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/socialMediaLogo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:contentDescription="@string/content_newsfeed_logo_description"
+        android:elevation="@dimen/content_newsfeed_default_elevation"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/socialMediaLogo"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:layout_toStartOf="@id/socialMediaLogo"
+        android:elevation="@dimen/content_newsfeed_default_elevation"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        tools:text="date" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userPhoto"
+        android:layout_width="@dimen/user_avatar_photo_size"
+        android:layout_height="@dimen/user_avatar_photo_size"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/date"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/content_newsfeed_user_photo_description"
+        android:elevation="@dimen/content_newsfeed_default_elevation"
+        tools:src="@mipmap/ic_launcher_round" />
+
+    <!--TODO check elevation-->
+    <TextView
+        android:id="@+id/userName"
+        style="@style/NewsUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/userPhoto"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_toEndOf="@id/userPhoto"
+        android:layout_toStartOf="@id/socialMediaLogo"
+        tools:text="Name" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@id/userName"
+        android:layout_below="@id/userName"
+
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:layout_marginTop="4dp"
+        android:autoLink="web"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@android:color/black"
+        tools:text="Text" />
+
+    <FrameLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignEnd="@id/text"
+        android:layout_alignStart="@id/text"
+        android:layout_below="@id/text"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginTop="4dp"
+        android:visibility="gone">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+    </FrameLayout>
+
+</RelativeLayout>

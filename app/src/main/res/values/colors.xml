@@ -8,4 +8,7 @@
 
     <color name="colorPrimaryTextTitle">#000000</color>
     <color name="colorSecondaryTextTitle">#424242</color>
+
+    <color name="twitterColor">#00aced</color>
+    <color name="facebookColor">#3b5998</color>
 </resources>
