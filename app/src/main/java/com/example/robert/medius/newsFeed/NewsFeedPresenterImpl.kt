@@ -1,6 +1,5 @@
 package com.example.robert.medius.newsFeed
 
-import android.util.Log
 import com.example.robert.medius.libs.base.EventBus
 import com.example.robert.medius.newsFeed.entities.News
 import com.example.robert.medius.newsFeed.events.NewsFeedEvent
@@ -32,8 +31,7 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
     }
 
     override fun onLoadMore(news: News?) {
-        Log.d(TAG, "onLoadMore called type ${view?.feedType}")
-        view?.isEmpty().let {
+        if (view?.getItemCount() == 1) {
             view?.showProgress()
         }
 
@@ -55,7 +53,6 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
                 }
 
                 is NewsFeedEvent.LoadMoreEvent -> {
-                    Log.d(TAG, "LoadMoreEvent called")
                     if (newsFeedEvent.news != null) {
                         view?.showContent()
                         view?.addContent(newsFeedEvent.news!!)
@@ -63,7 +60,7 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
                         view?.setIsMoreItems(false)
                     }
 
-                    view?.isEmpty().let {
+                    if (view?.getItemCount() == 1) {
                         view?.showEmpty()
                     }
 

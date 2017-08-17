@@ -15,11 +15,6 @@ import com.twitter.sdk.android.core.services.StatusesService
  */
 
 class TwitterApiHelper(val statusesService: StatusesService, val eventBus: EventBus) {
-
-    fun initTimeline() {
-        getTimeline { news, error -> eventBus.post(NewsFeedEvent.InitTimelineEvent(news, error, NewsFeedType.TWITTER)) }
-    }
-
     fun loadMoreTimeline(maxId: Long? = null) {
         getTimeline(maxId = maxId) {
             news, error ->

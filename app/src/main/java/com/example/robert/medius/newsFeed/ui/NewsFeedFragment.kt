@@ -103,13 +103,13 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
 
     override fun showProgress() {
         swipeRefreshLayout.visibility = View.GONE
-        emptyView.visibility = View.GONE
         progressView.visibility = View.VISIBLE
     }
 
     override fun showEmpty() {
-        swipeRefreshLayout.visibility = View.GONE
+        rvNewsFeed.visibility = View.GONE
         progressView.visibility = View.GONE
+        swipeRefreshLayout.visibility = View.VISIBLE
         emptyView.visibility = View.VISIBLE
     }
 
@@ -117,6 +117,7 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
         emptyView.visibility = View.GONE
         progressView.visibility = View.GONE
         swipeRefreshLayout.visibility = View.VISIBLE
+        rvNewsFeed.visibility = View.VISIBLE
     }
 
     override fun setRefreshing(isRefreshing: Boolean) {
@@ -132,16 +133,16 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
     }
 
     override fun addContent(items: List<News>) {
-        rvNewsFeed.post { adapter.addAll(items) }
+        adapter.addAll(items)
     }
 
     override fun setContent(items: List<News>) {
-        rvNewsFeed.post { adapter.set(items) }
+        adapter.set(items)
     }
 
     override fun setIsMoreItems(isMoreItems: Boolean) {
         adapter.isMoreItems = isMoreItems
     }
 
-    override fun isEmpty(): Boolean = adapter.itemCount == 1
+    override fun getItemCount(): Int = adapter.itemCount
 }

@@ -37,7 +37,9 @@ class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoad
                 holder.bind(news[position], imageLoader)
             }
             is ProgressViewHolder -> {
-//                holder?.setProgressBarColor(news[position]?.) FIXME
+                getLastItem()?.let {
+                    holder.setProgressBarColor(it.newsFeedType.color)
+                }
             }
         }
     }
@@ -88,7 +90,7 @@ class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoad
             userName.setOnClickListener { view.context.browse(news.user.userUrl ?: "") } //FIXME
             date.text = news.createdAt
             imageLoader.load(news.user.photoUrl, userPhoto)
-            imageLoader.load(news.socialMediaLogo, socialMediaLogo)
+            imageLoader.load(news.newsFeedType.logo, socialMediaLogo)
 //
 //            webView.settings.javaScriptEnabled = true
 //            webView.setWebChromeClient(WebChromeClient())
