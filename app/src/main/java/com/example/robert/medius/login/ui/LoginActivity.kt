@@ -91,6 +91,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     private fun setupButtons() {
+        button_facebook.setReadPermissions("user_posts")
         button_facebook.registerCallback(facebookCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult?) {
                 navigateToMainActivity()

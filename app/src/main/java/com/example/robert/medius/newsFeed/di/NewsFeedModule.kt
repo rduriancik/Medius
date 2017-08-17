@@ -1,6 +1,7 @@
 package com.example.robert.medius.newsFeed.di
 
 import com.example.robert.medius.entities.News
+import com.example.robert.medius.facebook.FacebookApiHelper
 import com.example.robert.medius.libs.base.EventBus
 import com.example.robert.medius.libs.base.ImageLoader
 import com.example.robert.medius.newsFeed.NewsFeedInteractor
@@ -27,13 +28,17 @@ class NewsFeedModule(private val view: NewsFeedView) {
             = NewsFeedPresenterImpl(view, interactor, eventBus)
 
     @Provides
-    fun provideNewsFeedInteractor(twitterApiHelper: TwitterApiHelper): NewsFeedInteractor
-            = NewsFeedInteractorImpl(twitterApiHelper)
+    fun provideNewsFeedInteractor(twitterApiHelper: TwitterApiHelper, facebookApiHelper: FacebookApiHelper): NewsFeedInteractor
+            = NewsFeedInteractorImpl(twitterApiHelper, facebookApiHelper)
 
     @Provides
     @Singleton
     fun provideTwitterApiHelper(statusesService: StatusesService, eventBus: EventBus): TwitterApiHelper
             = TwitterApiHelper(statusesService, eventBus)
+
+    @Provides
+    @Singleton
+    fun provideFacebookApiHelper(eventBus: EventBus): FacebookApiHelper = FacebookApiHelper(eventBus)
 
     @Provides
     @Singleton
