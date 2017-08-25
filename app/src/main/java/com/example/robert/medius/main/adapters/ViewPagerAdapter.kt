@@ -13,18 +13,11 @@ import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
  */
 class ViewPagerAdapter(fm: FragmentManager, private val fragments: MutableList<NewsFeedFragment>) : FragmentPagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment {
-        return fragments.get(position)
-    }
+    override fun getItem(position: Int): Fragment = fragments.get(position)
 
-    override fun getCount(): Int {
-        return fragments.size
-    }
+    override fun getCount(): Int = fragments.size
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        val name = fragments[position].feedType.name
-        return name
-    }
+    override fun getPageTitle(position: Int): CharSequence? = fragments[position].feedType.name
 
     fun getPageColor(position: Int)
             = if (position in 0..fragments.size - 1) fragments[position].feedType.color else R.color.colorAccent

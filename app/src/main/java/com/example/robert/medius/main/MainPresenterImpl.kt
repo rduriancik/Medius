@@ -10,7 +10,7 @@ import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 class MainPresenterImpl(override var view: MainView?, override val interactor: MainInteractor)
     : MainPresenter<MainView, MainInteractor> {
 
-    override fun onResume() {
+    override fun onCreate() {
         val fragments: MutableList<NewsFeedFragment> = mutableListOf()
 
         if (interactor.isFacebookLoggedIn()) {
@@ -20,7 +20,6 @@ class MainPresenterImpl(override var view: MainView?, override val interactor: M
         if (interactor.isTwitterLoggedIn()) {
             fragments.add(NewsFeedFragment.newInstance(NewsFeedType.TWITTER))
         }
-
         view?.setContent(fragments)
     }
 }
