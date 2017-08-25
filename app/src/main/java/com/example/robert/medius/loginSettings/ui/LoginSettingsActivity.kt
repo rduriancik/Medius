@@ -78,7 +78,9 @@ class LoginSettingsActivity : AppCompatActivity(), LoginSettingsView {
     }
 
     private fun setupSwitches() {
+        switch_facebook.setReadPermissions("user_posts")
         switch_facebook.registerCallback(createFacebookCallback())
+
         switch_twitter.setCallback(createTwitterCallback())
     }
 

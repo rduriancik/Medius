@@ -86,10 +86,13 @@ class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoad
 
         fun bind(news: News, imageLoader: ImageLoader) {
             text.text = news.newsMedia.text
-            userName.text = news.user.name
-            userName.setOnClickListener { view.context.browse(news.user.userUrl ?: "") } //FIXME
             date.text = news.createdAt
-            imageLoader.load(news.user.photoUrl, userPhoto)
+            news.user?.let {
+                userName.text = it.name
+                userName.setOnClickListener { view.context.browse(news.user.userUrl ?: "") } //FIXME
+                imageLoader.load(it.photoUrl, userPhoto)
+            }
+
             imageLoader.load(news.newsFeedType.logo, socialMediaLogo)
 //
 //            webView.settings.javaScriptEnabled = true
