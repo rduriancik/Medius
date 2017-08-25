@@ -1,5 +1,7 @@
 package com.example.robert.medius.newsFeed.di
 
+import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import com.example.robert.medius.entities.News
 import com.example.robert.medius.facebook.FacebookApiHelper
 import com.example.robert.medius.libs.base.EventBus
@@ -21,7 +23,7 @@ import javax.inject.Singleton
  * Created by robert on 31.7.2017.
  */
 @Module
-class NewsFeedModule(private val view: NewsFeedView) {
+class NewsFeedModule(private val view: NewsFeedView, private val context: Context) {
 
     @Provides
     fun provideNewsFeedPresenter(interactor: NewsFeedInteractor, eventBus: EventBus): NewsFeedPresenter<NewsFeedView, NewsFeedInteractor>
@@ -50,5 +52,11 @@ class NewsFeedModule(private val view: NewsFeedView) {
 
     @Provides
     fun provideMutableList(): MutableList<News> = mutableListOf<News>()
+
+    @Provides
+    fun provideLinearLayoutManager(context: Context): LinearLayoutManager = LinearLayoutManager(context)
+
+    @Provides
+    fun provideContext(): Context = context
 
 }

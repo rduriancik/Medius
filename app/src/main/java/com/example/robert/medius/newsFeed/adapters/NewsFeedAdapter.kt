@@ -20,9 +20,8 @@ import org.jetbrains.anko.browse
  * Created by robert on 4.7.2017.
  */
 
-class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoader: ImageLoader)
+class NewsFeedAdapter(val news: MutableList<News>, private val imageLoader: ImageLoader)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val TAG = "ADAPTER"
 
     companion object {
         const val VIEW_TYPE_ITEM = 1

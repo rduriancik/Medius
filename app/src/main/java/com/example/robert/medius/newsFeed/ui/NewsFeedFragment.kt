@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
 
     companion object {
         private const val TAG: String = "NewsFeedFragment"
+        private const val NEWS_LIST = "News_list"
         fun newInstance(type: NewsFeedType): NewsFeedFragment {
             val fragment = NewsFeedFragment()
             fragment.feedType = type
@@ -42,21 +44,25 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
     val newsFeedComponent: NewsFeedComponent by lazy {
         DaggerNewsFeedComponent.builder()
                 .libsModule(LibsModule(this))
-                .newsFeedModule(NewsFeedModule(this))
+                .newsFeedModule(NewsFeedModule(this, context))
                 .build()
     }
 
     override var feedType: NewsFeedType = NewsFeedType.NONE
     @Inject lateinit var presenter: NewsFeedPresenter<NewsFeedView, NewsFeedInteractor>
     @Inject lateinit var adapter: NewsFeedAdapter
+    @Inject lateinit var layoutManager: LinearLayoutManager
     private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        newsFeedComponent.inject(this)
+
         savedInstanceState?.let {
             feedType = it.getSerializable(NewsFeedType::class.java.simpleName) as NewsFeedType
+            layoutManager.onRestoreInstanceState(it.getParcelable(RecyclerView.LayoutManager::class.java.simpleName))
+            adapter.set(it.getParcelableArrayList(NEWS_LIST))
         }
-        newsFeedComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?)
@@ -70,8 +76,8 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
         swipeRefreshLayout.setOnRefreshListener { presenter.onRefresh() }
         swipeRefreshLayout.setColorSchemeResources(feedType.color)
 
-        rvNewsFeed.layoutManager = LinearLayoutManager(context)
         rvNewsFeed.adapter = adapter
+        rvNewsFeed.layoutManager = layoutManager
         rvNewsFeed.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         rvNewsFeed.addOnScrollListener(object : OnLoadMoreScrollListener() {
             override fun onLoadMore() {
@@ -92,6 +98,8 @@ class NewsFeedFragment() : Fragment(), NewsFeedView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putSerializable(NewsFeedType::class.java.simpleName, feedType)
+        outState.putParcelable(RecyclerView.LayoutManager::class.java.simpleName, layoutManager.onSaveInstanceState())
+        outState.putParcelableArrayList(NEWS_LIST, ArrayList<News>(adapter.news))
         super.onSaveInstanceState(outState)
     }
 
