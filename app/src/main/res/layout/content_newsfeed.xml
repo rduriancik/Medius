@@ -37,7 +37,7 @@
         android:layout_marginStart="16dp"
         android:contentDescription="@string/content_newsfeed_user_photo_description"
         android:elevation="@dimen/content_newsfeed_default_elevation"
-        tools:src="@mipmap/ic_launcher_round" />
+        android:src="@drawable/user_placeholder" />
 
     <!--TODO check elevation-->
     <TextView

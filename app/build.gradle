@@ -77,4 +77,7 @@ dependencies {
 
     // GSON
     compile 'com.google.code.gson:gson:2.8.1'
+
+    // PrettyTime
+    compile 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
 }
