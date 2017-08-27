@@ -18,7 +18,7 @@ fun mapTweetsToNews(tweets: List<Tweet>)
 
 
 private fun mapTwitterUser(user: TwitterUser)
-        = User(user.id, user.name, user.profileImageUrlHttps, "https://twitter.com/${user.screenName}")
+        = User(user.id, user.name, createTwitterUserPhotoUrl(user.profileImageUrlHttps), "https://twitter.com/${user.screenName}")
 
 private fun mapTwitterMedia(tweet: Tweet) =
         NewsMedia(tweet.text, tweet.source)
@@ -29,3 +29,5 @@ private fun convertDate(date: String): Long {
 }
 
 private fun createTweetUrl(id: String): String = "https://twitter.com/null/status/$id"
+
+private fun createTwitterUserPhotoUrl(url: String) = url.replace("_normal.", "_200x200.")
