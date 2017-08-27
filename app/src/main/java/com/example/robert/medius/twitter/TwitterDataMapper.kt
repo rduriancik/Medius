@@ -14,11 +14,11 @@ import com.twitter.sdk.android.core.models.User as TwitterUser
  */
 
 fun mapTweetsToNews(tweets: List<Tweet>)
-        = tweets.map { News(it.id.toString(), convertDate(it.createdAt), mapTwitterUser(it.user), mapTwitterMedia(it), NewsFeedType.TWITTER) }
+        = tweets.map { News(it.id.toString(), convertDate(it.createdAt), createTweetUrl(it.idStr), mapTwitterUser(it.user), mapTwitterMedia(it), NewsFeedType.TWITTER) }
 
 
 private fun mapTwitterUser(user: TwitterUser)
-        = User(user.id, user.name, user.profileImageUrlHttps, user.url)
+        = User(user.id, user.name, user.profileImageUrlHttps, "https://twitter.com/${user.screenName}")
 
 private fun mapTwitterMedia(tweet: Tweet) =
         NewsMedia(tweet.text, tweet.source)
@@ -27,3 +27,5 @@ private fun convertDate(date: String): Long {
     val formatter = SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH)
     return formatter.parse(date).time
 }
+
+private fun createTweetUrl(id: String): String = "https://twitter.com/null/status/$id"

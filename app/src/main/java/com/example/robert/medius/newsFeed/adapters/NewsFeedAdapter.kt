@@ -86,6 +86,7 @@ class NewsFeedAdapter(val news: MutableList<News>, private val imageLoader: Imag
         private val webView: WebView = view.findViewById(R.id.webView) as WebView
 
         fun bind(news: News, imageLoader: ImageLoader) {
+            itemView.setOnClickListener { view.context.browse(news.url) }
             text.text = news.newsMedia.text
             setDate(news.createdAt)
             news.user?.let {
