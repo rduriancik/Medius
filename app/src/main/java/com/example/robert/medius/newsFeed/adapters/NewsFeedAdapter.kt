@@ -15,6 +15,8 @@ import com.example.robert.medius.entities.News
 import com.example.robert.medius.libs.base.ImageLoader
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.browse
+import org.ocpsoft.prettytime.PrettyTime
+import java.util.*
 
 /**
  * Created by robert on 4.7.2017.
@@ -85,7 +87,7 @@ class NewsFeedAdapter(val news: MutableList<News>, private val imageLoader: Imag
 
         fun bind(news: News, imageLoader: ImageLoader) {
             text.text = news.newsMedia.text
-            date.text = news.createdAt
+            setDate(news.createdAt)
             news.user?.let {
                 userName.text = it.name
                 userName.setOnClickListener { view.context.browse(news.user.userUrl ?: "") } //FIXME
@@ -97,6 +99,11 @@ class NewsFeedAdapter(val news: MutableList<News>, private val imageLoader: Imag
 //            webView.settings.javaScriptEnabled = true
 //            webView.setWebChromeClient(WebChromeClient())
 //            webView.loadUrl("https://pbs.twimg.com/media/DGxnH7FXUAAekh-.jpg")
+        }
+
+        private fun setDate(date: Long) {
+            val prettyTime = PrettyTime(Locale.getDefault())
+            this.date.text = prettyTime.format(Date(date))
         }
 
     }

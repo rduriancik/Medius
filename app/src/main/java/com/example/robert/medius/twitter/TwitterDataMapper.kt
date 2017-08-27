@@ -5,6 +5,8 @@ import com.example.robert.medius.entities.NewsMedia
 import com.example.robert.medius.entities.User
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.twitter.sdk.android.core.models.Tweet
+import java.text.SimpleDateFormat
+import java.util.*
 import com.twitter.sdk.android.core.models.User as TwitterUser
 
 /**
@@ -12,7 +14,7 @@ import com.twitter.sdk.android.core.models.User as TwitterUser
  */
 
 fun mapTweetsToNews(tweets: List<Tweet>)
-        = tweets.map { News(it.id.toString(), it.createdAt, mapTwitterUser(it.user), mapTwitterMedia(it), NewsFeedType.TWITTER) }
+        = tweets.map { News(it.id.toString(), convertDate(it.createdAt), mapTwitterUser(it.user), mapTwitterMedia(it), NewsFeedType.TWITTER) }
 
 
 private fun mapTwitterUser(user: TwitterUser)
@@ -20,3 +22,8 @@ private fun mapTwitterUser(user: TwitterUser)
 
 private fun mapTwitterMedia(tweet: Tweet) =
         NewsMedia(tweet.text, tweet.source)
+
+private fun convertDate(date: String): Long {
+    val formatter = SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH)
+    return formatter.parse(date).time
+}

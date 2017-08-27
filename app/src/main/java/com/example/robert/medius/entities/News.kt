@@ -9,11 +9,11 @@ import com.example.robert.medius.newsFeed.types.NewsFeedType
  */
 
 //@Parcelize
-data class News(val id: String, val createdAt: String, val user: User?,
+data class News(val id: String, val createdAt: Long, val user: User?,
                 val newsMedia: NewsMedia, val newsFeedType: NewsFeedType) : Parcelable {
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readString(),
+            source.readLong(),
             source.readParcelable<User>(User::class.java.classLoader),
             source.readParcelable<NewsMedia>(NewsMedia::class.java.classLoader),
             NewsFeedType.values()[source.readInt()]
@@ -23,7 +23,7 @@ data class News(val id: String, val createdAt: String, val user: User?,
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
-        writeString(createdAt)
+        writeLong(createdAt)
         writeParcelable(user, 0)
         writeParcelable(newsMedia, 0)
         writeInt(newsFeedType.ordinal)
