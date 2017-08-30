@@ -41,7 +41,7 @@ data class News(val id: String, val createdAt: Long, val url: String, val user: 
 }
 
 //@Parcelize
-data class NewsMedia(val text: String, val url: String) : Parcelable {
+data class NewsMedia(val text: String, val extraContentUrl: String) : Parcelable {
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString()
@@ -51,7 +51,7 @@ data class NewsMedia(val text: String, val url: String) : Parcelable {
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(text)
-        writeString(url)
+        writeString(extraContentUrl)
     }
 
     companion object {

@@ -21,7 +21,7 @@ private fun mapTwitterUser(user: TwitterUser)
         = User(user.id, user.name, createTwitterUserPhotoUrl(user.profileImageUrlHttps), "https://twitter.com/${user.screenName}")
 
 private fun mapTwitterMedia(tweet: Tweet) =
-        NewsMedia(tweet.text, tweet.source)
+        NewsMedia(parseTweetText(tweet), tweet.source)
 
 private fun convertDate(date: String): Long {
     val formatter = SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH)
@@ -31,3 +31,14 @@ private fun convertDate(date: String): Long {
 private fun createTweetUrl(id: String): String = "https://twitter.com/null/status/$id"
 
 private fun createTwitterUserPhotoUrl(url: String) = url.replace("_normal.", "_200x200.")
+
+private fun parseTweetText(tweet: Tweet): String = with(tweet) {
+    var parsed = text.take(displayTextRange[1])
+    entities.urls.forEach {
+        if (it.indices[1] <= parsed.length) {
+            parsed = parsed.replaceRange(it.indices[0], it.indices[1], it.displayUrl)
+        }
+    }
+
+    return parsed
+}
