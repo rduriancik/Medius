@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.example.robert.medius.R
-import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.example.robert.medius.newsFeed.ui.NewsFeedFragment
 
 /**
@@ -20,20 +19,11 @@ class ViewPagerAdapter(fm: FragmentManager, private val fragments: MutableList<N
     override fun getPageTitle(position: Int): CharSequence? = fragments[position].feedType.name
 
     fun getPageColor(position: Int)
-            = if (position in 0..fragments.size - 1) fragments[position].feedType.color else R.color.colorAccent
+            = if (position in 0 until fragments.size) fragments[position].feedType.color else R.color.colorAccent
 
     fun set(items: MutableList<NewsFeedFragment>) {
         fragments.clear()
         fragments.addAll(items)
         notifyDataSetChanged()
     }
-
-    fun remove(type: NewsFeedType) {
-        val index = fragments.indexOfFirst { it.feedType == type }
-        if (index != -1) {
-            fragments.removeAt(index)
-            notifyDataSetChanged()
-        }
-    }
-
 }

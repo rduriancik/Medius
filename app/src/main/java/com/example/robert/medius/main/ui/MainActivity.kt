@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity(), MainView {
                 .mainModule(MainModule(supportFragmentManager, this))
                 .build()
     }
+
     @Inject lateinit var presenter: MainPresenter<MainView, MainInteractor>
     @Inject lateinit var viewPageAdapter: ViewPagerAdapter
 
