@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import com.example.robert.medius.R
 import com.example.robert.medius.extensions.snackbar
@@ -19,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_login_settings.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class LoginSettingsActivity : AppCompatActivity(), LoginSettingsView {
@@ -86,25 +86,27 @@ class LoginSettingsActivity : AppCompatActivity(), LoginSettingsView {
 
     fun createTwitterCallback(): TwitterLoginCallback = object : TwitterLoginCallback {
         override fun success() {
-            snackbar(container, "Success")
+            snackbar(container, "Login was successful")
         }
 
         override fun failure(error: String) {
-            snackbar(container, "Failure")
+            snackbar(container, "Login was not successful")
+            Log.e("TWITTER_LOGIN", error)
         }
     }
 
     fun createFacebookCallback(): FacebookLoginCallback = object : FacebookLoginCallback {
         override fun onError(error: String) {
-            toast("error ${error}")
+            snackbar(container, "Login was not successful")
+            Log.e("FACEBOOK_LOGIN", error)
         }
 
         override fun onSuccess() {
-            toast("Success")
+            snackbar(container, "Login was successful")
         }
 
         override fun onCancel() {
-            toast("cancel")
+            snackbar(container, "Login was cancelled")
         }
     }
 }
