@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity(), MainView {
                 .mainModule(MainModule(supportFragmentManager, this))
                 .build()
     }
+
     @Inject lateinit var presenter: MainPresenter<MainView, MainInteractor>
     @Inject lateinit var viewPageAdapter: ViewPagerAdapter
 
@@ -34,15 +35,13 @@ class MainActivity : AppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainComponent.inject(this)
+        presenter.onCreate()
 
         setSupportActionBar(toolbar)
         setupTabLayout()
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
+    override fun onRetainCustomNonConfigurationInstance(): Any = container.currentItem
 
     override fun onDestroy() {
         presenter.onDestroy()
@@ -51,7 +50,9 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun setupTabLayout() {
         container.adapter = viewPageAdapter
+        lastCustomNonConfigurationInstance?.let { container.currentItem = it as Int }
         tabs.setupWithViewPager(container)
+        setSelectedTabColor(container.currentItem)
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
@@ -60,12 +61,16 @@ class MainActivity : AppCompatActivity(), MainView {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val color = ContextCompat.getColor(this@MainActivity, viewPageAdapter.getPageColor(tab?.position ?: 0))
-                tabs.setSelectedTabIndicatorColor(color)
-                tabs.setSelectedTabTextColor(color)
+                setSelectedTabColor(tab?.position ?: 0)
             }
         })
 
+    }
+
+    private fun setSelectedTabColor(position: Int) {
+        val color = ContextCompat.getColor(this@MainActivity, viewPageAdapter.getPageColor(position))
+        tabs.setSelectedTabIndicatorColor(color)
+        tabs.setSelectedTabTextColor(color)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

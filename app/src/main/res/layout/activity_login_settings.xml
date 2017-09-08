@@ -17,6 +17,8 @@
             style="@style/SocialMediaTextViews"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:drawableStart="@drawable/facebook_logo"
+            android:drawablePadding="@dimen/small_margin"
             android:text="@string/social_media_facebook" />
 
         <com.example.robert.medius.facebook.FacebookLoginSwitch
@@ -33,6 +35,8 @@
             style="@style/SocialMediaTextViews"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:drawableStart="@drawable/twitter_logo"
+            android:drawablePadding="@dimen/small_margin"
             android:text="@string/social_media_twitter" />
 
         <com.example.robert.medius.twitter.TwitterLoginSwitch

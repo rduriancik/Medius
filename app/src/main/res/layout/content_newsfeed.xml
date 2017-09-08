@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
     <ImageView
         android:id="@+id/socialMediaLogo"
@@ -37,7 +40,7 @@
         android:layout_marginStart="16dp"
         android:contentDescription="@string/content_newsfeed_user_photo_description"
         android:elevation="@dimen/content_newsfeed_default_elevation"
-        tools:src="@mipmap/ic_launcher_round" />
+        android:src="@drawable/user_placeholder" />
 
     <!--TODO check elevation-->
     <TextView
@@ -50,6 +53,9 @@
         android:layout_marginRight="16dp"
         android:layout_toEndOf="@id/userPhoto"
         android:layout_toStartOf="@id/socialMediaLogo"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         tools:text="Name" />
 
     <TextView
@@ -59,28 +65,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@id/userName"
         android:layout_below="@id/userName"
-
         android:layout_marginEnd="@dimen/medium_margin"
         android:layout_marginTop="4dp"
         android:autoLink="web"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@android:color/black"
         tools:text="Text" />
-
-    <FrameLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignEnd="@id/text"
-        android:layout_alignStart="@id/text"
-        android:layout_below="@id/text"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:layout_marginTop="4dp"
-        android:visibility="gone">
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="150dp" />
-    </FrameLayout>
 
 </RelativeLayout>

@@ -15,8 +15,6 @@ class NewsFeedPresenterImpl(override var view: NewsFeedView?
                             , val eventBus: EventBus)
     : NewsFeedPresenter<NewsFeedView, NewsFeedInteractor> {
 
-    private val TAG = "PRESENTER"
-
     override fun onResume() {
         eventBus.register(this)
     }

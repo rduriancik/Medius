@@ -33,9 +33,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 .loginModule(LoginModule(this))
                 .build()
     }
+
     @Inject lateinit var presenter: LoginPresenter<LoginView, LoginInteractor>
-    private val facebookCallbackManager: CallbackManager = CallbackManager.Factory.create()
-    private val handler = Handler()
+    @Inject lateinit var facebookCallbackManager: CallbackManager
+    @Inject lateinit var handler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

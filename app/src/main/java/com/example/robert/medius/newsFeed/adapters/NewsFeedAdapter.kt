@@ -6,23 +6,24 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.robert.medius.R
 import com.example.robert.medius.entities.News
+import com.example.robert.medius.entities.NewsMedia
 import com.example.robert.medius.libs.base.ImageLoader
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.browse
+import org.ocpsoft.prettytime.PrettyTime
+import java.util.*
 
 /**
  * Created by robert on 4.7.2017.
  */
 
-class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoader: ImageLoader)
+class NewsFeedAdapter(val news: MutableList<News>, private val imageLoader: ImageLoader)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val TAG = "ADAPTER"
 
     companion object {
         const val VIEW_TYPE_ITEM = 1
@@ -82,11 +83,11 @@ class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoad
         private val date: TextView = view.findViewById(R.id.date) as TextView
         private val userName: TextView = view.findViewById(R.id.userName) as TextView
         private val text: TextView = view.findViewById(R.id.text) as TextView
-        private val webView: WebView = view.findViewById(R.id.webView) as WebView
 
         fun bind(news: News, imageLoader: ImageLoader) {
-            text.text = news.newsMedia.text
-            date.text = news.createdAt
+            itemView.setOnClickListener { view.context.browse(news.url) }
+            setText(news.newsMedia, news.url)
+            setDate(news.createdAt)
             news.user?.let {
                 userName.text = it.name
                 userName.setOnClickListener { view.context.browse(news.user.userUrl ?: "") } //FIXME
@@ -94,10 +95,16 @@ class NewsFeedAdapter(private val news: MutableList<News>, private val imageLoad
             }
 
             imageLoader.load(news.newsFeedType.logo, socialMediaLogo)
-//
-//            webView.settings.javaScriptEnabled = true
-//            webView.setWebChromeClient(WebChromeClient())
-//            webView.loadUrl("https://pbs.twimg.com/media/DGxnH7FXUAAekh-.jpg")
+        }
+
+        private fun setDate(date: Long) {
+            PrettyTime(Locale.getDefault()).let {
+                this.date.text = it.format(Date(date))
+            }
+        }
+
+        private fun setText(media: NewsMedia, url: String) {
+            text.text = media.text
         }
 
     }
