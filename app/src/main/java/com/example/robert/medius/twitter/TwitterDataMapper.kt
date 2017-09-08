@@ -37,7 +37,7 @@ private fun parseTweetText(tweet: Tweet): String = with(tweet) {
     var parsed = text.take(displayTextRange[1])
     entities.urls.forEach {
         if (it.indices[1] <= parsed.length) {
-            parsed = parsed.replaceRange(it.indices[0], it.indices[1], it.displayUrl)
+            parsed = parsed.replaceRange(it.indices[0], it.indices[1], it.url)
         }
     }
 
