@@ -41,17 +41,17 @@ data class News(val id: String, val createdAt: Long, val url: String, val user: 
 }
 
 //@Parcelize
-data class NewsMedia(val text: String, val extraContentUrl: String) : Parcelable {
+data class NewsMedia(val text: String, val linksIndices: List<Pair<Int, Int>>? = null) : Parcelable {
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readString()
+            ArrayList<Pair<Int, Int>>().apply { source.readList(this, Pair::class.java.classLoader) }
     )
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(text)
-        writeString(extraContentUrl)
+        writeList(linksIndices)
     }
 
     companion object {

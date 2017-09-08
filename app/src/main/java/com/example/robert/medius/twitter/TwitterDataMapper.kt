@@ -5,6 +5,7 @@ import com.example.robert.medius.entities.NewsMedia
 import com.example.robert.medius.entities.User
 import com.example.robert.medius.newsFeed.types.NewsFeedType
 import com.twitter.sdk.android.core.models.Tweet
+import com.twitter.sdk.android.core.models.UrlEntity
 import java.text.SimpleDateFormat
 import java.util.*
 import com.twitter.sdk.android.core.models.User as TwitterUser
@@ -21,7 +22,7 @@ private fun mapTwitterUser(user: TwitterUser)
         = User(user.id, user.name, createTwitterUserPhotoUrl(user.profileImageUrlHttps), "https://twitter.com/${user.screenName}")
 
 private fun mapTwitterMedia(tweet: Tweet) =
-        NewsMedia(parseTweetText(tweet), tweet.source)
+        NewsMedia(parseTweetText(tweet), createUrlIndicesList(tweet.entities.urls, tweet.displayTextRange[1]))
 
 private fun convertDate(date: String): Long {
     val formatter = SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH)
@@ -41,4 +42,16 @@ private fun parseTweetText(tweet: Tweet): String = with(tweet) {
     }
 
     return parsed
+}
+
+private fun createUrlIndicesList(urls: MutableList<UrlEntity>, maxLength: Int): List<Pair<Int, Int>>? {
+    if (urls.isNotEmpty()) {
+        val indices: MutableList<Pair<Int, Int>> = mutableListOf()
+        urls.filter { it.indices[1] <= maxLength }
+                .forEach { indices.add(it.indices[0] to it.indices[1]) }
+
+        return indices
+    }
+
+    return null
 }

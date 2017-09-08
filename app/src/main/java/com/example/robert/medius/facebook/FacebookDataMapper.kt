@@ -15,7 +15,7 @@ fun mapFacebookNewsToNews(facebookNews: List<FacebookNews>): List<News> =
         facebookNews.map { News(it.id, convertDate(it.createdAt), "", null, mapFacebookMedia(it), NewsFeedType.FACEBOOK) }
 
 private fun mapFacebookMedia(facebookNews: FacebookNews): NewsMedia =
-        NewsMedia(facebookNews.message ?: facebookNews.story ?: "Nothing", "")
+        NewsMedia(facebookNews.message ?: facebookNews.story ?: "Nothing")
 
 private fun convertDate(date: String): Long {
     val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
